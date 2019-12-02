@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset>
+        <field
+                name="id"
+                type="hidden"
+        />
+        <field
+                name="last_name"
+                type="text"
+                required="true"
+                label="COM_EMPL_FORM_EMPLOYER_LAST_NAME_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_LAST_NAME_DESC"
+                default=""
+        />
+        <field
+                name="first_name"
+                type="text"
+                required="true"
+                label="COM_EMPL_FORM_EMPLOYER_FIRST_NAME_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_FIRST_NAME_DESC"
+                default=""
+        />
+        <field
+                name="patronymic"
+                type="text"
+                label="COM_EMPL_FORM_EMPLOYER_PATRONYMIC_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_PATRONYMIC_DESC"
+                default=""
+        />
+        <field
+                name="gender"
+                type="radio"
+                required="true"
+                class="btn-group btn-group-yesno"
+                label="COM_EMPL_FORM_EMPLOYER_GENDER_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_GENDER_DESC"
+                default="m"
+        >
+            <option value="m">COM_EMPL_FORM_EMPLOYER_GENDER_M</option>
+            <option value="f">COM_EMPL_FORM_EMPLOYER_GENDER_F</option>
+        </field>
+        <field
+                name="birthday"
+                type="calendar"
+                required="true"
+                label="COM_EMPL_FORM_EMPLOYER_BIRTHDAY_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_BIRTHDAY_LABEL_DESC"
+        />
+    </fieldset>
+</form>
