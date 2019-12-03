@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form>
-    <fieldset>
+<form addrulepath="/administrator/components/com_empl/models/rules">
+    <fieldset name="general">
         <field
                 name="id"
                 type="hidden"
@@ -11,7 +11,9 @@
                 required="true"
                 label="COM_EMPL_FORM_EMPLOYER_LAST_NAME_LABEL"
                 description="COM_EMPL_FORM_EMPLOYER_LAST_NAME_DESC"
+                autocomplete="false"
                 default=""
+                validate="names"
         />
         <field
                 name="first_name"
@@ -19,13 +21,16 @@
                 required="true"
                 label="COM_EMPL_FORM_EMPLOYER_FIRST_NAME_LABEL"
                 description="COM_EMPL_FORM_EMPLOYER_FIRST_NAME_DESC"
+                autocomplete="false"
                 default=""
+                validate="names"
         />
         <field
                 name="patronymic"
                 type="text"
                 label="COM_EMPL_FORM_EMPLOYER_PATRONYMIC_LABEL"
                 description="COM_EMPL_FORM_EMPLOYER_PATRONYMIC_DESC"
+                autocomplete="false"
                 default=""
         />
         <field
@@ -36,6 +41,7 @@
                 label="COM_EMPL_FORM_EMPLOYER_GENDER_LABEL"
                 description="COM_EMPL_FORM_EMPLOYER_GENDER_DESC"
                 default="m"
+                validate="gender"
         >
             <option value="m">COM_EMPL_FORM_EMPLOYER_GENDER_M</option>
             <option value="f">COM_EMPL_FORM_EMPLOYER_GENDER_F</option>
@@ -44,8 +50,11 @@
                 name="birthday"
                 type="calendar"
                 required="true"
+                format="%d.%m.%Y"
                 label="COM_EMPL_FORM_EMPLOYER_BIRTHDAY_LABEL"
                 description="COM_EMPL_FORM_EMPLOYER_BIRTHDAY_LABEL_DESC"
+                autocomplete="false"
+                validate="birthday"
         />
     </fieldset>
 </form>

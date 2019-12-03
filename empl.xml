@@ -39,6 +39,7 @@
 		<filename>empl.php</filename>
 		<filename>controller.php</filename>
 		<folder>controllers</folder>
+		<folder>helpers</folder>
 		<folder>language</folder>
 		<folder>layouts</folder>
 		<folder>models</folder>
@@ -54,7 +55,7 @@
 				Note that all & must be escaped to &amp; for the file to be valid
 				XML and be parsed by the installer
 			-->
-			<menu link="option=com_empl">COM_EMPL</menu>
+			<menu link="option=com_empl&amp;view=employers">COM_EMPL_VIEW_EMPLOYERS</menu>
 		</submenu>
 
 		<!-- Core files -->

@@ -39,4 +39,9 @@ class TableEmplEmployers extends Table
 	{
 		parent::__construct('#__empl_employers', 'id', $db);
 	}
+
+	public function store($updateNulls = true)
+    {
+        return parent::store($updateNulls);
+    }
 }

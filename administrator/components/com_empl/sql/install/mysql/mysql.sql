@@ -1,4 +1,4 @@
-create table `#__empl_employers`
+create table if not exists `#__empl_employers`
 (
     id int unsigned auto_increment,
     guid char(36) default 0 not null,

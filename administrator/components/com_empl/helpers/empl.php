@@ -1,24 +1,8 @@
 <?php
-/**
- * @package    empl
- *
- * @author     Admin <your@email.com>
- * @copyright  A copyright
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
- * @link       http://your.url.com
- */
-
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 
 defined('_JEXEC') or die;
 
-/**
- * Empl helper.
- *
- * @package   empl
- * @since     1.0.0
- */
 class EmplHelper
 {
 	/**
@@ -32,6 +16,80 @@ class EmplHelper
 	 */
 	public function addSubmenu($vName)
 	{
-		HTMLHelper::_('sidebar.addEntry', Text::_('COM_EMPL'), 'index.php?option=com_empl&view=empl', $vName === 'empl');
+		JHtmlSidebar::addEntry(JText::sprintf('COM_EMPL_TITLE_EMPLOYERS'), 'index.php?option=com_empl&amp;view=employers', $vName === 'employers');
 	}
+
+    /**
+     * Проверяет наличие указанных в массиве параметров в GET-запросе
+     *
+     * @param array $params массив с проверяемыми параметрами
+     *
+     * @return array|bool массив с найденными параметрами или false, если ни один элемент не найден
+     *
+     * @since version 1.0.0
+     */
+    public static function isGet(array $params = array())
+    {
+        $fnd = array();
+        //Параметры, наличие которых проверяется в $_GET
+        foreach ($params as $param) {
+            if (in_array($param, $_GET)) $fnd[] = $param;
+        }
+        return (!empty($fnd)) ? $fnd : false;
+    }
+
+    /**
+     * Возвращает URL для обработки формы
+     * @return string
+     * @since 1.1.8.7
+     * @throws
+     */
+    public static function getActionUrl(): string
+    {
+        $uri = JUri::getInstance();
+        $query = $uri->getQuery();
+        $client = (!JFactory::getApplication()->isClient('administrator')) ? 'site' : 'administrator';
+        return JRoute::link($client, "index.php?{$query}");
+    }
+
+    /**
+     * Возвращает текущий URL
+     * @return string
+     * @since 1.2.0.3
+     * @throws
+     */
+    public static function getCurrentUrl(): string
+    {
+        $uri = JUri::getInstance();
+        $query = $uri->getQuery();
+        return "index.php?{$query}";
+    }
+
+    /**
+     * Возвращает URL для возврата (текущий адрес страницы)
+     * @return string
+     * @since 1.1.8.7
+     */
+    public static function getReturnUrl(): string
+    {
+        $uri = JUri::getInstance();
+        $query = $uri->getQuery();
+        return base64_encode("index.php?{$query}");
+    }
+
+    /**
+     * Возвращает URL для обработки формы левой панели
+     * @return string
+     * @since 1.2.0.3
+     */
+    public static function getSidebarAction():string
+    {
+        $return = self::getReturnUrl();
+        return JRoute::_("index.php?return={$return}");
+    }
+
+    public static function canDo(string $action, string $section = 'com_empl'): bool
+    {
+        return JFactory::getUser()->authorise($action, $section);
+    }
 }

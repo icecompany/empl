@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
-		<field name="rules"
-			   type="rules"
-			   label="JCONFIG_PERMISSIONS_LABEL"
-			   filter="rules"
-			   component="com_empl"
-			   section="component">
-		</field>
-	</fieldset>
+    <fieldset name="employer" label="COM_EMPL_SETTINGS_SECTION_EMPLOYER_LABEL"
+              description="COM_EMPL_SETTINGS_SECTION_EMPLOYER_DESC">
+        <field name="employer_min_age"
+               type="number"
+               min="14"
+               max="99"
+               label="COM_EMPL_SETTINGS_SECTION_EMPLOYER_MIN_AGE_LABEL"
+               descriptioin="COM_EMPL_SETTINGS_SECTION_EMPLOYER_MIN_AGE_DESC"
+               filter="integer"
+               component="com_empl"
+               section="component"
+        />
+        <field name="employer_max_age"
+               type="number"
+               min="16"
+               max="99"
+               label="COM_EMPL_SETTINGS_SECTION_EMPLOYER_MAX_AGE_LABEL"
+               descriptioin="COM_EMPL_SETTINGS_SECTION_EMPLOYER_MAX_AGE_DESC"
+               filter="integer"
+               component="com_empl"
+               section="component"
+        />
+    </fieldset>
+    <fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+        <field name="rules"
+               type="rules"
+               label="JCONFIG_PERMISSIONS_LABEL"
+               filter="rules"
+               component="com_empl"
+               section="component">
+        </field>
+    </fieldset>
 </config>

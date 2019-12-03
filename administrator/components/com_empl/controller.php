@@ -20,4 +20,5 @@ defined('_JEXEC') or die;
  */
 class EmplController extends BaseController
 {
+
 }
