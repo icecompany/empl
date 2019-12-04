@@ -42,6 +42,11 @@ class EmplModelEmployers extends ListModel
             $query->where("(e.first_name LIKE {$search} or e.last_name LIKE {$search} or e.patronymic LIKE {$search})");
         }
 
+        /* Сортировка */
+        $orderCol = $this->state->get('list.ordering');
+        $orderDirn = $this->state->get('list.direction');
+        $query->order($db->escape($orderCol . ' ' . $orderDirn));
+
         return $query;
     }
 
