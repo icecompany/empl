@@ -33,7 +33,7 @@ class EmplHelper
         $fnd = array();
         //Параметры, наличие которых проверяется в $_GET
         foreach ($params as $param) {
-            if (in_array($param, $_GET)) $fnd[] = $param;
+            if (isset($_GET[$param])) $fnd[] = $param;
         }
         return (!empty($fnd)) ? $fnd : false;
     }

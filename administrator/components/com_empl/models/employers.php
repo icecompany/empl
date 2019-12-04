@@ -18,7 +18,7 @@ class EmplModelEmployers extends ListModel
                 'e.state',
             );
         }
-        $this->isGet = EmplHelper::isGet(array('last_name', 'first_name', 'gender', 'birthday'));
+        $this->isGet = EmplHelper::isGet(array('last_name', 'first_name', 'gender', 'birthday', 'search'));
         $this->input = JFactory::getApplication()->input;
         $this->export = false;
         parent::__construct($config);
