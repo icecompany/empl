@@ -52,9 +52,28 @@
                 required="true"
                 format="%d.%m.%Y"
                 label="COM_EMPL_FORM_EMPLOYER_BIRTHDAY_LABEL"
-                description="COM_EMPL_FORM_EMPLOYER_BIRTHDAY_LABEL_DESC"
+                description="COM_EMPL_FORM_EMPLOYER_BIRTHDAY_DESC"
                 autocomplete="false"
                 validate="birthday"
+        />
+        <field
+                name="cityID"
+                type="list"
+                required="true"
+                class="city"
+                label="COM_EMPL_FORM_EMPLOYER_CITY_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_CITY_DESC"
+                validate="cityid"
+                filter="integer"
+        >
+        </field>
+        <field
+                name="hidden_city_id"
+                type="hidden"
+        />
+        <field
+                name="hidden_city_title"
+                type="hidden"
         />
     </fieldset>
 </form>

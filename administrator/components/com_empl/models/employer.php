@@ -16,6 +16,8 @@ class EmplModelEmployer extends AdminModel {
             $fields = array($item->last_name ?? '', $item->first_name ?? '', $item->patronymic ?? '');
             foreach ($fields as $i => $field) if (empty($field)) unset($fields[$i]);
             $item->fio = implode(' ', $fields);
+            $item->hidden_city_id = $item->cityID;
+            $item->hidden_city_title = EmplHelper::getCityTitle($item->cityID);
         }
         return $item;
     }

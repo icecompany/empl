@@ -28,6 +28,7 @@ class TableEmplEmployers extends Table
     var $gender = null;
     var $birthday = null;
     var $state = null;
+    var $cityID = null;
 	/**
 	 * Constructor
 	 *

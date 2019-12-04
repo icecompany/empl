@@ -19,6 +19,7 @@ HTMLHelper::_('script', 'com_empl/employer.js', array('version' => 'auto', 'rela
         }
     }
 </script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <form action="<?php echo EmplHelper::getActionUrl(); ?>"
       method="post" name="adminForm" id="adminForm" xmlns="http://www.w3.org/1999/html" class="form-validate">
     <div class="row-fluid">

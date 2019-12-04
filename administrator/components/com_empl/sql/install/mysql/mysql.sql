@@ -34,3 +34,10 @@ create index `#__empl_employers_lf_index`
 create index `#__empl_employers_state_index`
     on `#__empl_employers` (state);
 
+alter table `#__empl_employers`
+    add cityID int unsigned not null;
+
+alter table `#__empl_employers`
+    add constraint `#__empl_employers_#__grph_cities_id_fk`
+        foreign key (cityID) references `#__grph_cities` (id);
+
