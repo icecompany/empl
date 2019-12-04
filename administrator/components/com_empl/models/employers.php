@@ -29,7 +29,7 @@ class EmplModelEmployers extends ListModel
         $db = $this->getDbo();
         $query = $db->getQuery(true);
         $query
-            ->select("e.*, date_format(from_days(datediff(curdate(), e.birthday)), 'Y')+0 as age")
+            ->select("e.*, date_format(from_days(datediff(curdate(), e.birthday)), '%Y')+0 as age")
             ->from("#__empl_employers e");
         if ($this->isGet === false) {
             $search = $this->getState('filter.search');
