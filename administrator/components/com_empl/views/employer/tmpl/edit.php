@@ -9,7 +9,6 @@ JHtml::_('formbehavior.chosen', 'select');
 use Joomla\CMS\HTML\HTMLHelper;
 
 HTMLHelper::_('script', $this->script);
-HTMLHelper::_('script', 'com_empl/script.js', array('version' => 'auto', 'relative' => true));
 HTMLHelper::_('script', 'com_empl/employer.js', array('version' => 'auto', 'relative' => true));
 ?>
 <script type="text/javascript">
