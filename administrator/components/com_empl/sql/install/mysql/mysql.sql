@@ -1,4 +1,22 @@
-drop table if exists `#__empl_employers`, `#__metro_stations`, `#__metro_lines`, `#__moscow_districts`, `#__moscow_regions`;
+drop table if exists `#__empl_employers`, `#__metro_stations`, `#__metro_lines`, `#__moscow_districts`, `#__moscow_regions`, `#__empl_language_levels`;
+
+create table `#__empl_language_levels`
+(
+    id int auto_increment,
+    title varchar(255) not null,
+    weight int default 0 not null comment 'Вес позиции',
+    constraint `#__empl_language_levels_pk`
+        primary key (id)
+)
+    comment 'Уровни знания языков';
+
+INSERT INTO `#__empl_language_levels` (id, title, weight) VALUES (1, 'Английский - Могу прочитать и перевести', 10);
+INSERT INTO `#__empl_language_levels` (id, title, weight) VALUES (2, 'Английский - Могу объясниться', 20);
+INSERT INTO `#__empl_language_levels` (id, title, weight) VALUES (3, 'Английский - Разговариваю', 30);
+INSERT INTO `#__empl_language_levels` (id, title, weight) VALUES (4, 'Английский - Свободно разговариваю', 40);
+
+create index `#__empl_language_levels_weight_index`
+    on `#__empl_language_levels` (weight);
 
 create table `#__moscow_regions`
 (
@@ -549,3 +567,23 @@ create index `#__empl_employers_lf_index`
 
 create index `#__empl_employers_state_index`
     on `#__empl_employers` (state);
+
+create table `s7vi9_empl_languages`
+(
+    id int auto_increment,
+    employerID int unsigned not null,
+    languageID int not null,
+    constraint `s7vi9_empl_languages_pk`
+        primary key (id),
+    constraint `s7vi9_empl_languages_s7vi9_empl_employers_id_fk`
+        foreign key (employerID) references `s7vi9_empl_employers` (id)
+            on update cascade on delete cascade,
+    constraint `s7vi9_empl_languages_s7vi9_empl_language_levels_id_fk`
+        foreign key (languageID) references `s7vi9_empl_language_levels` (id)
+            on update cascade on delete cascade
+)
+    comment 'Таблица с уровнями знаний английского сотрудниками';
+
+create unique index `s7vi9_empl_languages_employerID_languageID_uindex`
+    on `s7vi9_empl_languages` (employerID, languageID);
+

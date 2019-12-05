@@ -76,6 +76,13 @@
                 validate="metroid"
         />
         <field
+                name="languages"
+                type="Language"
+                label="COM_EMPL_FORM_EMPLOYER_LANGUAGES_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_LANGUAGES_DESC"
+                multiple="true"
+        />
+        <field
                 name="hidden_city_id"
                 type="hidden"
         />
