@@ -42,6 +42,7 @@ class EmplModelEmployers extends ListModel
             $gender = $this->getState('filter.gender');
             $min_age = $this->getState('filter.min_age');
             $max_age = $this->getState('filter.max_age');
+            $metro = $this->getState('filter.metro');
         }
         else {
             $search = $this->input->getString('search', '');
@@ -67,6 +68,10 @@ class EmplModelEmployers extends ListModel
             if (!is_numeric($min_age) && is_numeric($max_age)) {
                 $query->having("age <= {$max_age}");
             }
+        }
+        if (isset($metro) && is_array($metro) && !empty($metro) && count($metro) > 0) {
+            $metro = implode(", ", $metro);
+            $query->where("e.metroID in ({$metro})");
         }
 
         /* Сортировка */
@@ -121,6 +126,8 @@ class EmplModelEmployers extends ListModel
         $this->setState('filter.min_age', $min_age);
         $max_age = $this->getUserStateFromRequest($this->context . '.filter.max_age', 'filter_max_age', '', 'string');
         $this->setState('filter.max_age', $max_age);
+        $metro = $this->getUserStateFromRequest($this->context . '.filter.metro', 'filter_metro', '', 'array');
+        $this->setState('filter.metro', $metro);
         parent::populateState($ordering, $direction);
     }
 
@@ -130,6 +137,7 @@ class EmplModelEmployers extends ListModel
         $id .= ':' . $this->getState('filter.gender');
         $id .= ':' . $this->getState('filter.min_age');
         $id .= ':' . $this->getState('filter.max_age');
+        $id .= ':' . $this->getState('filter.metro');
         return parent::getStoreId($id);
     }
 

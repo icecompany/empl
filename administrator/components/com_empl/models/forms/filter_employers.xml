@@ -39,6 +39,14 @@
         >
             <option value="">COM_EMPL_FILTER_SELECT_MAX_AGE</option>
         </field>
+        <field
+                name="metro"
+                type="Metro"
+                label="COM_EMPL_FILTER_SELECT_METRO"
+                description="COM_EMPL_FILTER_SELECT_METRO"
+                multiple="true"
+                onchange="this.form.submit();"
+        />
     </fields>
     <fields name="list">
         <field
