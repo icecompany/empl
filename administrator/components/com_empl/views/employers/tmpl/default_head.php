@@ -29,6 +29,12 @@ $listDirn    = $this->escape($this->state->get('list.direction'));
         <?php echo JHtml::_('searchtools.sort', 'COM_EMPL_HEAD_EMPLOYER_AGE', 'age', $listDirn, $listOrder); ?>
     </th>
     <th>
+        <?php echo JHtml::_('searchtools.sort', 'COM_EMPL_HEAD_EMPLOYER_METRO', 'metro', $listDirn, $listOrder); ?>
+    </th>
+    <th>
+        <?php echo JHtml::_('searchtools.sort', 'COM_EMPL_HEAD_EMPLOYER_CITY', 'city', $listDirn, $listOrder); ?>
+    </th>
+    <th>
         <?php echo JHtml::_('searchtools.sort', 'ID', 'e.id', $listDirn, $listOrder); ?>
     </th>
 </tr>

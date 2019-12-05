@@ -68,6 +68,14 @@
         >
         </field>
         <field
+                name="metroID"
+                type="Metro"
+                required="true"
+                label="COM_EMPL_FORM_EMPLOYER_METRO_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_METRO_DESC"
+                validate="metroid"
+        />
+        <field
                 name="hidden_city_id"
                 type="hidden"
         />

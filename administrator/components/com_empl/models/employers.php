@@ -15,6 +15,8 @@ class EmplModelEmployers extends ListModel
                 'e.gender',
                 'e.birthday',
                 'age',
+                'metro',
+                'city',
                 'e.state',
             );
         }
@@ -30,7 +32,11 @@ class EmplModelEmployers extends ListModel
         $query = $db->getQuery(true);
         $query
             ->select("e.*, date_format(from_days(datediff(curdate(), e.birthday)), '%Y')+0 as age")
-            ->from("#__empl_employers e");
+            ->select("m.station as metro")
+            ->select("c.name as city")
+            ->from("#__empl_employers e")
+            ->leftJoin("`#__metro_view_stations` m on m.id = e.metroID")
+            ->leftJoin("`#__grph_cities` c on c.id = e.cityID");
         if ($this->isGet === false) {
             $search = $this->getState('filter.search');
         }
@@ -65,6 +71,8 @@ class EmplModelEmployers extends ListModel
             $birthday = JDate::getInstance($item->birthday);
             $arr['birthday'] = $birthday->format("d.m.Y");
             $arr['age'] = $item->age;
+            $arr['city'] = $item->city;
+            $arr['metro'] = $item->metro;
             $arr['state'] = $item->state;
             $result['items'][] = $this->prepare($arr);
         }

@@ -30,6 +30,12 @@ foreach ($this->items['items'] as $i => $item) :
             <?php echo $item['age'];?>
         </td>
         <td>
+            <?php echo $item['metro'];?>
+        </td>
+        <td>
+            <?php echo $item['city'];?>
+        </td>
+        <td>
             <?php echo $item['id'];?>
         </td>
     </tr>
