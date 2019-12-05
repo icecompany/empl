@@ -110,20 +110,8 @@ class EmplModelEmployer extends AdminModel {
             }
         }
         else {
-            foreach ($languages as $language) {
-                if (($key = array_search($language, $current)) === false) {
-                    $table = $this->getTable('Languages');
-                    $arr = array('id' => null, 'employerID' => $employerID, 'languageID' => $language);
-                    $table->save($arr);
-                }
-            }
-            foreach ($current as $item) {
-                if (($key = array_search($item, $languages)) === false) {
-                    $table = $this->getTable('Languages');
-                    $table->load(array('employerID' => $employerID, 'languageID' => $item));
-                    $table->delete($table->id);
-                }
-            }
+            foreach ($languages as $language) if (($key = array_search($language, $current)) === false) $this->addLanguage($employerID, $language);
+            foreach ($current as $item) if (($key = array_search($item, $languages)) === false) $this->deleteLanguage($employerID, $item);
         }
         return true;
     }
@@ -137,5 +125,19 @@ class EmplModelEmployer extends AdminModel {
             ->from("#__empl_languages")
             ->where("employerID = {$employerID}");
         return $db->setQuery($query)->loadColumn() ?? array();
+    }
+
+    private function addLanguage(int $employerID, int $languageID): void
+    {
+        $table = $this->getTable('Languages');
+        $arr = array('id' => null, 'employerID' => $employerID, 'languageID' => $languageID);
+        $table->save($arr);
+    }
+
+    private function deleteLanguage(int $employerID, int $languageID): void
+    {
+        $table = $this->getTable('Languages');
+        $table->load(array('employerID' => $employerID, 'languageID' => $languageID));
+        $table->delete($table->id);
     }
 }
