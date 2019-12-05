@@ -12,7 +12,7 @@ class EmplModelEmployers extends ListModel
                 'e.last_name',
                 'e.first_name',
                 'e.patronymic',
-                'e.gender',
+                'e.gender', 'gender',
                 'e.birthday',
                 'age',
                 'metro',
@@ -20,7 +20,7 @@ class EmplModelEmployers extends ListModel
                 'e.state',
             );
         }
-        $this->isGet = EmplHelper::isGet(array('last_name', 'first_name', 'gender', 'birthday', 'search'));
+        $this->isGet = EmplHelper::isGet(array('gender', 'birthday', 'search'));
         $this->input = JFactory::getApplication()->input;
         $this->export = false;
         parent::__construct($config);
@@ -39,13 +39,19 @@ class EmplModelEmployers extends ListModel
             ->leftJoin("`#__grph_cities` c on c.id = e.cityID");
         if ($this->isGet === false) {
             $search = $this->getState('filter.search');
+            $gender = $this->getState('filter.gender');
         }
         else {
             $search = $this->input->getString('search', '');
+            $gender = $this->input->getString('gender', '');
         }
         if (!empty($search)) {
             $search = $db->q("%{$search}%");
             $query->where("(e.first_name LIKE {$search} or e.last_name LIKE {$search} or e.patronymic LIKE {$search})");
+        }
+        if (!empty($gender)) {
+            $gender = $db->q($gender);
+            $query->where("e.gender = {$gender}");
         }
 
         /* Сортировка */
@@ -94,12 +100,15 @@ class EmplModelEmployers extends ListModel
     {
         $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search', '', 'string');
         $this->setState('filter.search', $search);
+        $gender = $this->getUserStateFromRequest($this->context . '.filter.gender', 'filter_gender', '', 'string');
+        $this->setState('filter.gender', $gender);
         parent::populateState($ordering, $direction);
     }
 
     protected function getStoreId($id = '')
     {
         $id .= ':' . $this->getState('filter.search');
+        $id .= ':' . $this->getState('filter.gender');
         return parent::getStoreId($id);
     }
 
