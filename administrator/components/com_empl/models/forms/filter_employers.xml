@@ -47,6 +47,14 @@
                 multiple="true"
                 onchange="this.form.submit();"
         />
+        <field
+                name="language"
+                type="Language"
+                label="COM_EMPL_FILTER_SELECT_LANGUAGE"
+                description="COM_EMPL_FILTER_SELECT_LANGUAGE"
+                multiple="true"
+                onchange="this.form.submit();"
+        />
     </fields>
     <fields name="list">
         <field

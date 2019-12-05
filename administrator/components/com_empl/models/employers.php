@@ -17,6 +17,7 @@ class EmplModelEmployers extends ListModel
                 'age', 'min_age', 'max_age',
                 'metro',
                 'city',
+                'language',
                 'e.state',
             );
         }
@@ -43,6 +44,7 @@ class EmplModelEmployers extends ListModel
             $min_age = $this->getState('filter.min_age');
             $max_age = $this->getState('filter.max_age');
             $metro = $this->getState('filter.metro');
+            $language = $this->getState('filter.language');
         }
         else {
             $search = $this->input->getString('search', '');
@@ -72,6 +74,11 @@ class EmplModelEmployers extends ListModel
         if (isset($metro) && is_array($metro) && !empty($metro) && count($metro) > 0) {
             $metro = implode(", ", $metro);
             $query->where("e.metroID in ({$metro})");
+        }
+        if (isset($language) && is_array($language) && !empty($language) && count($language) > 0) {
+            $ids = $this->getLanguagesID($language);
+            $ids = implode(", ", $ids);
+            $query->where("e.id in ({$ids})");
         }
 
         /* Сортировка */
@@ -126,8 +133,10 @@ class EmplModelEmployers extends ListModel
         $this->setState('filter.min_age', $min_age);
         $max_age = $this->getUserStateFromRequest($this->context . '.filter.max_age', 'filter_max_age', '', 'string');
         $this->setState('filter.max_age', $max_age);
-        $metro = $this->getUserStateFromRequest($this->context . '.filter.metro', 'filter_metro', '', 'array');
+        $metro = $this->getUserStateFromRequest($this->context . '.filter.metro', 'filter_metro', '');
         $this->setState('filter.metro', $metro);
+        $language = $this->getUserStateFromRequest($this->context . '.filter.language', 'filter_language', '');
+        $this->setState('filter.language', $language);
         parent::populateState($ordering, $direction);
     }
 
@@ -138,7 +147,21 @@ class EmplModelEmployers extends ListModel
         $id .= ':' . $this->getState('filter.min_age');
         $id .= ':' . $this->getState('filter.max_age');
         $id .= ':' . $this->getState('filter.metro');
+        $id .= ':' . $this->getState('filter.language');
         return parent::getStoreId($id);
+    }
+
+    protected function getLanguagesID(array $languages): array
+    {
+        if (empty($languages)) return array();
+        $ids = implode(", ", $languages);
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
+        $query
+            ->select("employerID")
+            ->from("`#__empl_languages`")
+            ->where("languageID in ({$ids})");
+        return $db->setQuery($query)->loadColumn() ?? array();
     }
 
     private $isGet, $input, $export;
