@@ -11,15 +11,33 @@
                 class="js-stools-search-string"
         />
         <field
-            name="gender"
-            type="list"
-            label="COM_EMPL_FILTER_SELECT_GENDER"
-            description="COM_EMPL_FILTER_SELECT_GENDER"
-            onchange="this.form.submit();"
-            >
+                name="gender"
+                type="list"
+                label="COM_EMPL_FILTER_SELECT_GENDER"
+                description="COM_EMPL_FILTER_SELECT_GENDER"
+                onchange="this.form.submit();"
+        >
             <option value="">COM_EMPL_FILTER_SELECT_GENDER</option>
             <option value="m">COM_EMPL_FILTER_SELECT_GENDER_M</option>
             <option value="f">COM_EMPL_FILTER_SELECT_GENDER_F</option>
+        </field>
+        <field
+                name="min_age"
+                type="Age"
+                label="COM_EMPL_FILTER_SELECT_MIN_AGE"
+                description="COM_EMPL_FILTER_SELECT_MIN_AGE"
+                onchange="this.form.submit();"
+        >
+            <option value="">COM_EMPL_FILTER_SELECT_MIN_AGE</option>
+        </field>
+        <field
+                name="max_age"
+                type="Age"
+                label="COM_EMPL_FILTER_SELECT_MAX_AGE"
+                description="COM_EMPL_FILTER_SELECT_MAX_AGE"
+                onchange="this.form.submit();"
+        >
+            <option value="">COM_EMPL_FILTER_SELECT_MAX_AGE</option>
         </field>
     </fields>
     <fields name="list">

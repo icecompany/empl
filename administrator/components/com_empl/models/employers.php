@@ -14,13 +14,13 @@ class EmplModelEmployers extends ListModel
                 'e.patronymic',
                 'e.gender', 'gender',
                 'e.birthday',
-                'age',
+                'age', 'min_age', 'max_age',
                 'metro',
                 'city',
                 'e.state',
             );
         }
-        $this->isGet = EmplHelper::isGet(array('gender', 'birthday', 'search'));
+        $this->isGet = EmplHelper::isGet(array('gender', 'birthday', 'search', 'min_age', 'max_age'));
         $this->input = JFactory::getApplication()->input;
         $this->export = false;
         parent::__construct($config);
@@ -40,10 +40,14 @@ class EmplModelEmployers extends ListModel
         if ($this->isGet === false) {
             $search = $this->getState('filter.search');
             $gender = $this->getState('filter.gender');
+            $min_age = $this->getState('filter.min_age');
+            $max_age = $this->getState('filter.max_age');
         }
         else {
             $search = $this->input->getString('search', '');
             $gender = $this->input->getString('gender', '');
+            $min_age = $this->input->getString('min_age', '');
+            $max_age = $this->input->getString('max_age', '');
         }
         if (!empty($search)) {
             $search = $db->q("%{$search}%");
@@ -52,6 +56,17 @@ class EmplModelEmployers extends ListModel
         if (!empty($gender)) {
             $gender = $db->q($gender);
             $query->where("e.gender = {$gender}");
+        }
+        if (is_numeric($min_age) || is_numeric($max_age)) {
+            if (is_numeric($min_age) && is_numeric($max_age)) {
+                $query->having("age between {$min_age} and {$max_age}");
+            }
+            if (is_numeric($min_age) && !is_numeric($max_age)) {
+                $query->having("age >= {$min_age}");
+            }
+            if (!is_numeric($min_age) && is_numeric($max_age)) {
+                $query->having("age <= {$max_age}");
+            }
         }
 
         /* Сортировка */
@@ -102,6 +117,10 @@ class EmplModelEmployers extends ListModel
         $this->setState('filter.search', $search);
         $gender = $this->getUserStateFromRequest($this->context . '.filter.gender', 'filter_gender', '', 'string');
         $this->setState('filter.gender', $gender);
+        $min_age = $this->getUserStateFromRequest($this->context . '.filter.min_age', 'filter_min_age', '', 'string');
+        $this->setState('filter.min_age', $min_age);
+        $max_age = $this->getUserStateFromRequest($this->context . '.filter.max_age', 'filter_max_age', '', 'string');
+        $this->setState('filter.max_age', $max_age);
         parent::populateState($ordering, $direction);
     }
 
@@ -109,6 +128,8 @@ class EmplModelEmployers extends ListModel
     {
         $id .= ':' . $this->getState('filter.search');
         $id .= ':' . $this->getState('filter.gender');
+        $id .= ':' . $this->getState('filter.min_age');
+        $id .= ':' . $this->getState('filter.max_age');
         return parent::getStoreId($id);
     }
 
