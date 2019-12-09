@@ -7,9 +7,8 @@ window.onload = function () {
     loadCity();
     jQuery(f).autocomplete({source: function () {
             let val = f.value;
-            if (f.length < 2) return;
+            if (val.length < 2) return;
             jQuery.getJSON(`${url}&q=${val}`, function (json) {
-                select_elem.chosen();
                 select_elem.empty();
                 jQuery.each(json, function (idx, obj) {
                     select_elem.append(`<option value="${obj.id}">${obj.name} (${obj.region})</option>`);
@@ -17,8 +16,8 @@ window.onload = function () {
                 select_elem.chosen({width: "95%"});
                 select_elem.trigger("liszt:updated");
                 unlockSearchCity(f);
+                f.value = val;
             });
-            f.value = val;
         }
     });
 };
