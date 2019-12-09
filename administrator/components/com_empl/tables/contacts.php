@@ -24,6 +24,7 @@ class TableEmplContacts extends Table
     var $employerID = null;
     var $tip = null;
     var $val = null;
+    var $description = null;
 	/**
 	 * Constructor
 	 *

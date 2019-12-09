@@ -19,6 +19,7 @@ class EmplModelEmployer extends AdminModel {
             $item->hidden_city_id = $item->cityID;
             $item->hidden_city_title = EmplHelper::getCityTitle($item->cityID);
             $item->languages = $this->loadLanguages($item->id);
+            $item->contacts = $this->loadContacts($item->id);
         }
         return $item;
     }
@@ -96,6 +97,24 @@ class EmplModelEmployer extends AdminModel {
     public function getScript()
     {
         return 'administrator/components/' . $this->option . '/models/forms/employer.js';
+    }
+
+    private function loadContacts(int $employerID): array
+    {
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
+        $query
+            ->select("*")
+            ->from("#__empl_contacts")
+            ->where("employerID = {$employerID}")
+            ->order("id desc");
+        $items = $db->setQuery($query)->loadAssocList() ?? array();
+        foreach ($items as $i => $item) {
+            if ($item['tip'] == 'email') $items[$i]['val'] = JHtml::link("mailto:{$item['val']}", $item['val']);
+            if ($item['tip'] == 'vk') $items[$i]['val'] = JHtml::link($item['val'], $item['val']);
+            if ($item['tip'] == 'mobile') $items[$i]['val'] = JHtml::link("tel:{$item['val']}", $item['val']);
+        }
+        return $items;
     }
 
     private function saveLanguages(int $employerID, array $languages = array()): bool

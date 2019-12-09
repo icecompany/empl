@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_empl/models/rules">
+    <fieldset name="general">
+        <field
+                name="id"
+                type="hidden"
+        />
+        <field
+                name="employerID"
+                type="hidden"
+        />
+        <field
+                name="tip"
+                type="list"
+                required="true"
+                label="COM_EMPL_FORM_CONTACT_TYPE_LABEL"
+                description="COM_EMPL_FORM_CONTACT_TYPE_DESC"
+                validate="contacttype"
+        >
+            <option value="mobile">COM_EMPL_FORM_CONTACT_TYPE_PHONE</option>
+            <option value="email">COM_EMPL_FORM_CONTACT_TYPE_EMAIL</option>
+            <option value="vk">COM_EMPL_FORM_CONTACT_TYPE_VK</option>
+        </field>
+        <field
+                name="val"
+                type="text"
+                required="true"
+                label="COM_EMPL_FORM_CONTACT_VALUE_LABEL"
+                description="COM_EMPL_FORM_CONTACT_VALUE_DESC"
+                autocomplete="false"
+        />
+        <field
+                name="description"
+                type="textarea"
+                label="COM_EMPL_FORM_CONTACT_DESCRIPTION_LABEL"
+                description="COM_EMPL_FORM_CONTACT_DESCRIPTION_DESC"
+                autocomplete="false"
+        />
+    </fieldset>
+</form>

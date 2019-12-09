@@ -601,3 +601,6 @@ create table `#__empl_contacts`
 )
     comment 'Контактные данные сотрудников';
 
+alter table `#__empl_contacts`
+    add description varchar(255) default null null;
+
