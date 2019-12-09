@@ -568,22 +568,36 @@ create index `#__empl_employers_lf_index`
 create index `#__empl_employers_state_index`
     on `#__empl_employers` (state);
 
-create table `s7vi9_empl_languages`
+create table `#__empl_languages`
 (
     id int auto_increment,
     employerID int unsigned not null,
     languageID int not null,
-    constraint `s7vi9_empl_languages_pk`
+    constraint `#__empl_languages_pk`
         primary key (id),
-    constraint `s7vi9_empl_languages_s7vi9_empl_employers_id_fk`
-        foreign key (employerID) references `s7vi9_empl_employers` (id)
+    constraint `#__empl_languages_#__empl_employers_id_fk`
+        foreign key (employerID) references `#__empl_employers` (id)
             on update cascade on delete cascade,
-    constraint `s7vi9_empl_languages_s7vi9_empl_language_levels_id_fk`
-        foreign key (languageID) references `s7vi9_empl_language_levels` (id)
+    constraint `#__empl_languages_#__empl_language_levels_id_fk`
+        foreign key (languageID) references `#__empl_language_levels` (id)
             on update cascade on delete cascade
 )
     comment 'Таблица с уровнями знаний английского сотрудниками';
 
-create unique index `s7vi9_empl_languages_employerID_languageID_uindex`
-    on `s7vi9_empl_languages` (employerID, languageID);
+create unique index `#__empl_languages_employerID_languageID_uindex`
+    on `#__empl_languages` (employerID, languageID);
+
+create table `#__empl_contacts`
+(
+    id int unsigned auto_increment,
+    employerID int unsigned not null,
+    tip enum('mobile', 'email', 'vk') not null,
+    val text not null,
+    constraint `#__empl_contacts_pk`
+        primary key (id),
+    constraint `#__empl_contacts_#__empl_employers_id_fk`
+        foreign key (employerID) references `#__empl_employers` (id)
+            on update cascade on delete cascade
+)
+    comment 'Контактные данные сотрудников';
 
