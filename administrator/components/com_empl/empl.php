@@ -12,6 +12,11 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_empl'))
 // Require the helper
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/empl.php';
 
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/passwd.php';
+$db = JFactory::getDbo();
+$passwd = $db->q($credentials->password);
+$db->setQuery("SELECT @password:={$passwd}")->execute();
+
 // Execute the task
 $controller = BaseController::getInstance('empl');
 $controller->execute(JFactory::getApplication()->input->get('task'));

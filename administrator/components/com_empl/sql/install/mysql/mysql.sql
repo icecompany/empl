@@ -592,7 +592,7 @@ create table `#__empl_contacts`
     id int unsigned auto_increment,
     employerID int unsigned not null,
     tip enum('mobile', 'email', 'vk') not null,
-    val text not null,
+    val varbinary(255) not null,
     constraint `#__empl_contacts_pk`
         primary key (id),
     constraint `#__empl_contacts_#__empl_employers_id_fk`

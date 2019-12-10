@@ -38,6 +38,7 @@
 	<files folder="components/com_empl">
 		<filename>empl.php</filename>
 		<filename>controller.php</filename>
+		<filename>passwd.php</filename>
 		<folder>controllers</folder>
 		<folder>helpers</folder>
 		<folder>language</folder>

@@ -12,26 +12,21 @@ class EmplModelContact extends AdminModel {
     public function getItem($pk = null)
     {
         $item = parent::getItem($pk);
-        if ($item->id != null) {
-            $item->title = $this->getEmployerTitle($item->id);
-        }
-        else {
+        if ($item->id == null) {
             $item->employerID = JFactory::getApplication()->getUserStateFromRequest("{$this->option}.employerID", 'employerID', 0);
         }
+        else {
+            $item->val = EmplHelper::decryptContactData($item->id);
+        }
+        $item->title = $this->getEmployerTitle($item->employerID);
         return $item;
     }
 
     public function getEmployerTitle(int $employerID): string
     {
-        $model = parent::getInstance('Contact', 'EmplModel');
+        $model = parent::getInstance('Employer', 'EmplModel');
         $employer = $model->getItem($employerID);
         return $employer->fio;
-    }
-
-    public function save($data)
-    {
-        foreach ($data as $param => $value) if ($value != null && is_string($value)) $data[$param] = StringHelper::trim($value);
-        return parent::save($data);
     }
 
     public function delete(&$pks)

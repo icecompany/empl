@@ -22,11 +22,11 @@ if ($this->item->id == null) {
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($this->item->contacts as $contact) :?>
+            <?php foreach ($this->contacts as $contact) :?>
                 <tr>
                     <td><?php echo $contact['val'];?></td>
                     <td><?php echo $contact['description'];?></td>
-                    <td></td>
+                    <td><?php echo $contact['edit_link'];?></td>
                     <td></td>
                 </tr>
             <?php endforeach;?>

@@ -37,7 +37,7 @@ class TableEmplContacts extends Table
 		parent::__construct('#__empl_contacts', 'id', $db);
 	}
 
-	public function store($updateNulls = true)
+    public function store($updateNulls = true)
     {
         return parent::store($updateNulls);
     }
