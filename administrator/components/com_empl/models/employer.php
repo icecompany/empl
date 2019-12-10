@@ -111,8 +111,8 @@ class EmplModelEmployer extends AdminModel {
             ->order("id desc");
         $items = $db->setQuery($query)->loadAssocList() ?? array();
         foreach ($items as $i => $item) {
-            if ($item['tip'] == 'email') $items[$i]['val'] = JHtml::link("mailto:{$item['val']}", $item['val']);
-            if ($item['tip'] == 'vk') $items[$i]['val'] = JHtml::link($item['val'], $item['val']);
+            if ($item['tip'] == 'email') $items[$i]['val'] = JHtml::link("mailto:{$item['val']}", $item['val'], array('target' => '_blank'));
+            if ($item['tip'] == 'vk') $items[$i]['val'] = JHtml::link($item['val'], $item['val'], array('target' => '_blank'));
             if ($item['tip'] == 'mobile') $items[$i]['val'] = JHtml::link("tel:{$item['val']}", $item['val']);
             $return = EmplHelper::getReturnUrl();
             $url = JRoute::_("index.php?option=com_empl&amp;task=contact.edit&amp;id={$item['id']}&amp;return={$return}");
