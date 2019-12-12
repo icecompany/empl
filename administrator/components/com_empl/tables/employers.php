@@ -29,6 +29,16 @@ class TableEmplEmployers extends Table
     var $birthday = null;
     var $cityID = null;
     var $metroID = null;
+    var $address = null;
+    var $experience = null;
+    var $night = null;
+    var $clothes_size = null;
+    var $foot_size = null;
+    var $smoke = null;
+    var $tattoo = null;
+    var $piercing = null;
+    var $driver = null;
+    var $car = null;
     var $state = null;
 	/**
 	 * Constructor
