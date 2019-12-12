@@ -50,6 +50,8 @@ class EmplHelper
             ->select("if(num is not null, cast(aes_decrypt(num, @password) as char(255)), '') as num")
             ->select("if(dat is not null, cast(aes_decrypt(dat, @password) as char(255)), '') as dat")
             ->select("if(issued is not null, cast(aes_decrypt(issued, @password) as char(255)), '') as issued")
+            ->select("if(city is not null, cast(aes_decrypt(city, @password) as char(255)), '') as city")
+            ->select("if(address is not null, cast(aes_decrypt(address, @password) as char(255)), '') as address")
             ->from("#__empl_documents")
             ->where("id = {$documentID}");
         return $db->setQuery($query, 0, 1)->loadAssoc();

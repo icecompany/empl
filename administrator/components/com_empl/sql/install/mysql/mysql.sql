@@ -624,54 +624,78 @@ create table `#__empl_documents`
 create index `#__empl_documents_tip_index`
     on `#__empl_documents` (tip);
 
-alter table s7vi9_empl_employers
+alter table `#__empl_employers`
     add address varbinary(255) not null after metroID;
 
-alter table s7vi9_empl_employers
+alter table `#__empl_employers`
     add experience text default null null comment 'Опыт работы' after address;
 
-alter table s7vi9_empl_employers
+alter table `#__empl_employers`
     add night tinyint default 0 not null comment 'Готовность работы в ночное время' after experience;
 
-alter table s7vi9_empl_employers
+alter table `#__empl_employers`
     add clothes_size set('xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl') default 's' not null comment 'Размер одежды' after night;
 
-alter table s7vi9_empl_employers
+alter table `#__empl_employers`
     add foot_size double(5,1) unsigned default 35 not null comment 'Размер обуви' after clothes_size;
 
-alter table s7vi9_empl_employers
+alter table `#__empl_employers`
     add smoke tinyint default 0 not null comment 'Курение' after foot_size;
 
-alter table s7vi9_empl_employers
+alter table `#__empl_employers`
     add tattoo varchar(255) default null null comment 'Наличие татуировок' after smoke;
 
-alter table s7vi9_empl_employers
+alter table `#__empl_employers`
     add piercing varchar(255) default null null comment 'Наличие пирсинга' after tattoo;
 
-alter table s7vi9_empl_employers
+alter table `#__empl_employers`
     add driver tinyint default 0 not null comment 'Наличие водительского удостоверения' after piercing;
 
-alter table s7vi9_empl_employers
+alter table `#__empl_employers`
     add car tinyint default 0 not null comment 'Наличие своео авто' after driver;
 
-create index s7vi9_empl_employers_car_index
-    on s7vi9_empl_employers (car);
+create index `#__empl_employers_car_index`
+    on `#__empl_employers` (car);
 
-create index s7vi9_empl_employers_clothes_size_index
-    on s7vi9_empl_employers (clothes_size);
+create index `#__empl_employers_clothes_size_index`
+    on `#__empl_employers` (clothes_size);
 
-create index s7vi9_empl_employers_driver_index
-    on s7vi9_empl_employers (driver);
+create index `#__empl_employers_driver_index`
+    on `#__empl_employers` (driver);
 
-create index s7vi9_empl_employers_foot_size_index
-    on s7vi9_empl_employers (foot_size);
+create index `#__empl_employers_foot_size_index`
+    on `#__empl_employers` (foot_size);
 
-create index s7vi9_empl_employers_night_index
-    on s7vi9_empl_employers (night);
+create index `#__empl_employers_night_index`
+    on `#__empl_employers` (night);
 
-create index s7vi9_empl_employers_piercing_index
-    on s7vi9_empl_employers (piercing);
+create index `#__empl_employers_piercing_index`
+    on `#__empl_employers` (piercing);
 
-create index s7vi9_empl_employers_tattoo_index
-    on s7vi9_empl_employers (tattoo);
+create index `#__empl_employers_tattoo_index`
+    on `#__empl_employers` (tattoo);
+
+alter table `#__empl_employers`
+    add height int unsigned default 0 not null comment 'Рост' after experience;
+
+alter table `#__empl_employers`
+    add weight int unsigned default 0 not null comment 'Вес' after height;
+
+alter table `#__empl_employers`
+    add smart tinyint default 1 not null after car;
+
+create index `#__empl_employers_height_index`
+    on `#__empl_employers` (height);
+
+create index `#__empl_employers_smart_index`
+    on `#__empl_employers` (smart);
+
+create index `#__empl_employers_weight_index`
+    on `#__empl_employers` (weight);
+
+alter table `#__empl_documents`
+    add address varbinary(255) default null null;
+
+alter table `#__empl_documents`
+    add city varbinary(255) default null null after issued;
 

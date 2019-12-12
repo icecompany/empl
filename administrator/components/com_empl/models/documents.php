@@ -26,6 +26,8 @@ class EmplModelDocuments extends ListModel
             ->select("if(num is not null, cast(aes_decrypt(num, @password) as char(255)), '') as num")
             ->select("if(dat is not null, cast(aes_decrypt(dat, @password) as char(255)), '') as dat")
             ->select("if(issued is not null, cast(aes_decrypt(issued, @password) as char(255)), '') as issued")
+            ->select("if(address is not null, cast(aes_decrypt(address, @password) as char(255)), '') as address")
+            ->select("if(city is not null, cast(aes_decrypt(city, @password) as char(255)), '') as city")
             ->from("#__empl_documents d")
             ->where("employerID = {$this->employerID}");
         $this->setState('list.limit', 0);
@@ -46,6 +48,8 @@ class EmplModelDocuments extends ListModel
             $arr['num'] = $item->num;
             $arr['dat'] = ($item->dat != null) ? JFactory::getDate($item->dat)->format("d.m.Y") : '';
             $arr['issued'] = $item->issued;
+            $arr['city'] = $item->city;
+            $arr['address'] = $item->address;
             $url = JRoute::_("index.php?option=com_empl&amp;task=document.edit&amp;id={$item->id}&amp;return={$return}");
             $arr['edit_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_HEAD_ACTION_EDIT'));
             $result[] = $arr;

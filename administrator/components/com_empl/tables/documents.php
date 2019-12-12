@@ -27,6 +27,8 @@ class TableEmplDocuments extends Table
     var $num = null;
     var $dat = null;
     var $issued = null;
+    var $city = null;
+    var $address = null;
 	/**
 	 * Constructor
 	 *

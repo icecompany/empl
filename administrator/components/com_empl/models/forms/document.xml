@@ -49,5 +49,20 @@
                 description="COM_EMPL_FORM_DOCUMENT_ISSUED_DESC"
                 autocomplete="false"
         />
+        <field
+                name="city"
+                type="text"
+                label="COM_EMPL_FORM_DOCUMENT_CITY_LABEL"
+                description="COM_EMPL_FORM_DOCUMENT_CITY_DESC"
+                autocomplete="false"
+        />
+        <field
+                name="address"
+                type="textarea"
+                label="COM_EMPL_FORM_DOCUMENT_ADDRESS_LABEL"
+                description="COM_EMPL_FORM_DOCUMENT_ADDRESS_DESC"
+                hint="COM_EMPL_FORM_DOCUMENT_ADDRESS_DESC"
+                autocomplete="false"
+        />
     </fieldset>
 </form>

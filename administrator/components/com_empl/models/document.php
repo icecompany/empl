@@ -20,6 +20,8 @@ class EmplModelDocument extends AdminModel {
             $item->num = $data['num'];
             $item->dat = $data['dat'];
             $item->issued = $data['issued'];
+            $item->address = $data['address'];
+            $item->city = $data['city'];
         }
         $item->title = $this->getEmployerTitle($item->employerID);
         return $item;
@@ -62,7 +64,7 @@ class EmplModelDocument extends AdminModel {
 
     protected function prepareTable($table)
     {
-    	$nulls = array('series', 'num', 'dat', 'issued'); //Поля, которые NULL
+    	$nulls = array('series', 'num', 'dat', 'issued', 'city', 'address'); //Поля, которые NULL
 
 	    foreach ($nulls as $field)
 	    {

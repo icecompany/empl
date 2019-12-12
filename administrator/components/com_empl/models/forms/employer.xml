@@ -14,6 +14,7 @@
                 autocomplete="false"
                 default=""
                 validate="names"
+                class="span12"
         />
         <field
                 name="first_name"
@@ -24,6 +25,7 @@
                 autocomplete="false"
                 default=""
                 validate="names"
+                class="span12"
         />
         <field
                 name="patronymic"
@@ -32,6 +34,7 @@
                 description="COM_EMPL_FORM_EMPLOYER_PATRONYMIC_DESC"
                 autocomplete="false"
                 default=""
+                class="span12"
         />
         <field
                 name="gender"
@@ -56,11 +59,13 @@
                 autocomplete="false"
                 validate="birthday"
         />
+    </fieldset>
+    <fieldset name="addresses">
         <field
                 name="cityID"
                 type="list"
                 required="true"
-                class="city"
+                class="city span12"
                 label="COM_EMPL_FORM_EMPLOYER_CITY_LABEL"
                 description="COM_EMPL_FORM_EMPLOYER_CITY_DESC"
                 validate="cityid"
@@ -74,6 +79,7 @@
                 label="COM_EMPL_FORM_EMPLOYER_METRO_LABEL"
                 description="COM_EMPL_FORM_EMPLOYER_METRO_DESC"
                 validate="metroid"
+                class="span12"
         />
         <field
                 name="address"
@@ -81,14 +87,37 @@
                 required="true"
                 label="COM_EMPL_FORM_EMPLOYER_ADDRESS_LABEL"
                 description="COM_EMPL_FORM_EMPLOYER_ADDRESS_DESC"
-                />
+                class="span12"
+        />
+    </fieldset>
+    <fieldset name="experience">
+        <field
+                name="experience"
+                type="textarea"
+                label="COM_EMPL_FORM_EMPLOYER_EXPERIENCE_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_EXPERIENCE_DESC"
+                class="span12"
+        />
         <field
                 name="languages"
                 type="Language"
                 label="COM_EMPL_FORM_EMPLOYER_LANGUAGES_LABEL"
                 description="COM_EMPL_FORM_EMPLOYER_LANGUAGES_DESC"
                 multiple="true"
+                class="span12"
         />
+        <field
+                name="night"
+                type="radio"
+                required="true"
+                class="btn-group btn-group-yesno"
+                label="COM_EMPL_FORM_EMPLOYER_NIGHT_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_NIGHT_DESC"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
         <field
                 name="hidden_city_id"
                 type="hidden"
@@ -97,5 +126,146 @@
                 name="hidden_city_title"
                 type="hidden"
         />
+    </fieldset>
+    <fieldset name="about_left">
+        <field
+            name="height"
+            type="number"
+            label="COM_EMPL_FORM_EMPLOYER_HEIGHT_LABEL"
+            description="COM_EMPL_FORM_EMPLOYER_HEIGHT_DESC"
+            class="span12"
+            required="true"
+            min="100"
+            max="250"
+            default="170"
+            filter="integer"
+            />
+        <field
+            name="weight"
+            type="number"
+            label="COM_EMPL_FORM_EMPLOYER_WEIGHT_LABEL"
+            description="COM_EMPL_FORM_EMPLOYER_WEIGHT_DESC"
+            class="span12"
+            required="true"
+            min="40"
+            default="65"
+            max="200"
+            filter="integer"
+            />
+        <field
+                name="clothes_size"
+                type="list"
+                label="COM_EMPL_FORM_EMPLOYER_CLOTHES_SIZE_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_CLOTHES_SIZE_DESC"
+                class="span12"
+                required="true"
+        >
+            <option value="xs">XS</option>
+            <option value="s">S</option>
+            <option value="m">M</option>
+            <option value="l">L</option>
+            <option value="xl">XL</option>
+            <option value="xxl">XXL</option>
+            <option value="xxxl">XXXL</option>
+        </field>
+        <field
+                name="foot_size"
+                type="list"
+                label="COM_EMPL_FORM_EMPLOYER_FOOT_SIZE_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_FOOT_SIZE_DESC"
+                class="span12"
+                required="true"
+        >
+            <option value="35">35</option>
+            <option value="35.5">35.5</option>
+            <option value="36">36</option>
+            <option value="36.5">36.5</option>
+            <option value="37">37</option>
+            <option value="37.5">37.5</option>
+            <option value="38">38</option>
+            <option value="38.5">38.5</option>
+            <option value="39">39</option>
+            <option value="39.5">39.5</option>
+            <option value="40">40</option>
+            <option value="40.5">40.5</option>
+            <option value="41">41</option>
+            <option value="41.5">41.5</option>
+            <option value="42">42</option>
+            <option value="42.5">42.5</option>
+            <option value="43">43</option>
+            <option value="43.5">43.5</option>
+            <option value="44">44</option>
+            <option value="44.5">44.5</option>
+            <option value="45">45</option>
+            <option value="45.5">45.5</option>
+        </field>
+        <field
+                name="driver"
+                type="radio"
+                required="true"
+                class="btn-group btn-group-yesno"
+                label="COM_EMPL_FORM_EMPLOYER_DRIVER_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_DRIVER_DESC"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="car"
+                type="radio"
+                required="true"
+                class="btn-group btn-group-yesno"
+                label="COM_EMPL_FORM_EMPLOYER_CAR_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_CAR_DESC"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="smart"
+                type="radio"
+                required="true"
+                class="btn-group btn-group-yesno"
+                label="COM_EMPL_FORM_EMPLOYER_SMART_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_SMART_DESC"
+                default="1"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+    </fieldset>
+    <fieldset name="about_right">
+        <field
+                name="tattoo"
+                type="textarea"
+                label="COM_EMPL_FORM_EMPLOYER_TATTOO_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_TATTOO_DESC"
+                hint="COM_EMPL_FORM_EMPLOYER_TATTOO_HINT"
+                autocomplete="false"
+                class="span12"
+        />
+        <field
+                name="piercing"
+                type="textarea"
+                label="COM_EMPL_FORM_EMPLOYER_PIERCING_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_PIERCING_DESC"
+                hint="COM_EMPL_FORM_EMPLOYER_PIERCING_HINT"
+                autocomplete="false"
+                class="span12"
+        />
+        <field
+                name="smoke"
+                type="radio"
+                required="true"
+                class="btn-group btn-group-yesno"
+                label="COM_EMPL_FORM_EMPLOYER_SMOKE_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_SMOKE_DESC"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
     </fieldset>
 </form>

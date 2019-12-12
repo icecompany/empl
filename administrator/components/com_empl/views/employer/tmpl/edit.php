@@ -1,7 +1,6 @@
 <?php
 defined('_JEXEC') or die;
 JHtml::_('bootstrap.tooltip');
-JHtml::_('bootstrap.framework');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 JHtml::_('formbehavior.chosen', 'select');
@@ -23,13 +22,19 @@ HTMLHelper::_('script', 'com_empl/employer.js', array('version' => 'auto', 'rela
       method="post" name="adminForm" id="adminForm" xmlns="http://www.w3.org/1999/html" class="form-validate">
     <div class="row-fluid">
         <div class="span12 form-horizontal">
-            <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
+            <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general', 'useCookie' => true)); ?>
             <div class="tab-content">
                 <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::sprintf('COM_EMPL_TAB_EMPLOYER_GENERAL')); ?>
                 <div class="row-fluid">
                     <div class="span6">
                         <div>
                             <?php echo $this->loadTemplate('general'); ?>
+                        </div>
+                        <div>
+                            <?php echo $this->loadTemplate('addresses'); ?>
+                        </div>
+                        <div>
+                            <?php echo $this->loadTemplate('experience'); ?>
                         </div>
                     </div>
                     <div class="span6">
@@ -38,6 +43,20 @@ HTMLHelper::_('script', 'com_empl/employer.js', array('version' => 'auto', 'rela
                         </div>
                         <div>
                             <?php echo $this->loadTemplate('documents'); ?>
+                        </div>
+                    </div>
+                </div>
+                <?php echo JHtml::_('bootstrap.endTab'); ?>
+                <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'about', JText::sprintf('COM_EMPL_TAB_EMPLOYER_ABOUT')); ?>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div>
+                            <?php echo $this->loadTemplate('about_left'); ?>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div>
+                            <?php echo $this->loadTemplate('about_right'); ?>
                         </div>
                     </div>
                 </div>

@@ -30,8 +30,10 @@ class TableEmplEmployers extends Table
     var $cityID = null;
     var $metroID = null;
     var $address = null;
-    var $experience = null;
+    var $weight = null;
+    var $height = null;
     var $night = null;
+    var $experience = null;
     var $clothes_size = null;
     var $foot_size = null;
     var $smoke = null;
@@ -39,6 +41,7 @@ class TableEmplEmployers extends Table
     var $piercing = null;
     var $driver = null;
     var $car = null;
+    var $smart = null;
     var $state = null;
 	/**
 	 * Constructor
