@@ -69,6 +69,7 @@ class EmplModelDocument extends AdminModel {
 		    if (!strlen($table->$field)) $table->$field = NULL;
     	}
 
+	    if ($table->dat == '0000-00-00 00:00:00') $table->dat = NULL;
 	    if ($table->dat != null) $table->dat = JDate::getInstance($table->dat)->format("Y-m-d");
         parent::prepareTable($table);
     }

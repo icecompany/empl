@@ -44,7 +44,7 @@ class EmplModelDocuments extends ListModel
             $arr['tip'] = JText::sprintf("COM_EMPL_FORM_DOCUMENT_TYPE_{$item->tip}");
             $arr['series'] = $item->series;
             $arr['num'] = $item->num;
-            $arr['dat'] = JFactory::getDate($item->dat)->format("d.m.Y");
+            $arr['dat'] = ($item->dat != null) ? JFactory::getDate($item->dat)->format("d.m.Y") : '';
             $arr['issued'] = $item->issued;
             $url = JRoute::_("index.php?option=com_empl&amp;task=document.edit&amp;id={$item->id}&amp;return={$return}");
             $arr['edit_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_HEAD_ACTION_EDIT'));

@@ -12,7 +12,7 @@ HTMLHelper::_('script', $this->script);
 ?>
 <script type="text/javascript">
     Joomla.submitbutton = function (task) {
-        if (task === 'document.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {*/
+        if (task === 'document.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
             Joomla.submitform(task, document.getElementById('adminForm'));
         }
     }
