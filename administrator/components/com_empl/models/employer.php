@@ -104,23 +104,8 @@ class EmplModelEmployer extends AdminModel {
     {
         $item = parent::getItem();
         if ($item->id == null) return array();
-        $db = $this->getDbo();
-        $query = $db->getQuery(true);
-        $query
-            ->select("id, employerID, tip, cast(aes_decrypt(val, @password) as char(255)) as val, description")
-            ->from("#__empl_contacts")
-            ->where("employerID = {$item->id}")
-            ->order("id desc");
-        $items = $db->setQuery($query)->loadAssocList() ?? array();
-        foreach ($items as $i => $item) {
-            if ($item['tip'] == 'email') $items[$i]['val'] = JHtml::link("mailto:{$item['val']}", $item['val'], array('target' => '_blank'));
-            if ($item['tip'] == 'vk') $items[$i]['val'] = JHtml::link($item['val'], $item['val'], array('target' => '_blank'));
-            if ($item['tip'] == 'mobile') $items[$i]['val'] = JHtml::link("tel:{$item['val']}", $item['val']);
-            $return = EmplHelper::getReturnUrl();
-            $url = JRoute::_("index.php?option=com_empl&amp;task=contact.edit&amp;id={$item['id']}&amp;return={$return}");
-            $items[$i]['edit_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_HEAD_ACTION_EDIT'));
-        }
-        return $items;
+        $model = ListModel::getInstance('Contacts', 'EmplModel');
+        return $model->setEmployerID($item->id)->getItems();
     }
 
     public function getDocuments(): array
