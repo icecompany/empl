@@ -13,7 +13,7 @@ HTMLHelper::_('script', 'com_empl/employer.js', array('version' => 'auto', 'rela
 ?>
 <script type="text/javascript">
     Joomla.submitbutton = function (task) {
-        if (task === 'employer.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {*/
+        if (task === 'employer.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
             Joomla.submitform(task, document.getElementById('adminForm'));
         }
     }
