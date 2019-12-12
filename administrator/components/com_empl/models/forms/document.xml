@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_empl/models/rules">
+    <fieldset name="general">
+        <field
+                name="id"
+                type="hidden"
+        />
+        <field
+                name="employerID"
+                type="hidden"
+        />
+        <field
+                name="tip"
+                type="list"
+                required="true"
+                label="COM_EMPL_FORM_DOCUMENT_TYPE_LABEL"
+                description="COM_EMPL_FORM_DOCUMENT_TYPE_DESC"
+                validate="documenttype"
+                default="passport"
+        >
+            <option value="passport">COM_EMPL_FORM_DOCUMENT_TYPE_PASSPORT</option>
+        </field>
+        <field
+                name="series"
+                type="text"
+                label="COM_EMPL_FORM_DOCUMENT_SERIES_LABEL"
+                description="COM_EMPL_FORM_DOCUMENT_SERIES_DESC"
+                autocomplete="false"
+        />
+        <field
+                name="num"
+                type="text"
+                label="COM_EMPL_FORM_DOCUMENT_NUMBER_LABEL"
+                description="COM_EMPL_FORM_DOCUMENT_NUMBER_DESC"
+                autocomplete="false"
+        />
+        <field
+                name="dat"
+                type="calendar"
+                label="COM_EMPL_FORM_DOCUMENT_DATE_LABEL"
+                description="COM_EMPL_FORM_DOCUMENT_DATE_DESC"
+                format="%d.%m.%Y"
+                autocomplete="false"
+        />
+        <field
+                name="issued"
+                type="textarea"
+                label="COM_EMPL_FORM_DOCUMENT_ISSUED_LABEL"
+                description="COM_EMPL_FORM_DOCUMENT_ISSUED_DESC"
+                autocomplete="false"
+        />
+    </fieldset>
+</form>

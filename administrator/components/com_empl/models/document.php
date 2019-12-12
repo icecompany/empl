@@ -2,8 +2,8 @@
 defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Model\AdminModel;
 
-class EmplModelContact extends AdminModel {
-    public function getTable($name = 'Contacts', $prefix = 'TableEmpl', $options = array())
+class EmplModelDocument extends AdminModel {
+    public function getTable($name = 'Documents', $prefix = 'TableEmpl', $options = array())
     {
         return JTable::getInstance($name, $prefix, $options);
     }
@@ -15,7 +15,11 @@ class EmplModelContact extends AdminModel {
             $item->employerID = $this->getState('employerID');
         }
         else {
-            $item->val = EmplHelper::decryptContactData($item->id);
+            $data = EmplHelper::decryptDocumentData($item->id);
+            $item->series = $data['series'];
+            $item->num = $data['num'];
+            $item->dat = $data['dat'];
+            $item->issued = $data['issued'];
         }
         $item->title = $this->getEmployerTitle($item->employerID);
         return $item;
@@ -36,7 +40,7 @@ class EmplModelContact extends AdminModel {
     public function getForm($data = array(), $loadData = true)
     {
         $form = $this->loadForm(
-            $this->option.'.contact', 'contact', array('control' => 'jform', 'load_data' => $loadData)
+            $this->option.'.document', 'document', array('control' => 'jform', 'load_data' => $loadData)
         );
         if (empty($form))
         {
@@ -47,7 +51,7 @@ class EmplModelContact extends AdminModel {
 
     protected function loadFormData()
     {
-        $data = JFactory::getApplication()->getUserState($this->option.'.edit.contact.data', array());
+        $data = JFactory::getApplication()->getUserState($this->option.'.edit.document.data', array());
         if (empty($data))
         {
             $data = $this->getItem();
@@ -58,12 +62,14 @@ class EmplModelContact extends AdminModel {
 
     protected function prepareTable($table)
     {
-    	$nulls = array('description'); //Поля, которые NULL
+    	$nulls = array('series', 'num', 'dat', 'issued'); //Поля, которые NULL
 
 	    foreach ($nulls as $field)
 	    {
 		    if (!strlen($table->$field)) $table->$field = NULL;
     	}
+
+	    if ($table->dat != null) $table->dat = JDate::getInstance($table->dat)->format("Y-m-d");
         parent::prepareTable($table);
     }
 
@@ -73,7 +79,7 @@ class EmplModelContact extends AdminModel {
 
         if (!empty($record->id))
         {
-            return $user->authorise('core.edit.state', $this->option . '.contact.' . (int) $record->id);
+            return $user->authorise('core.edit.state', $this->option . '.document.' . (int) $record->id);
         }
         else
         {
@@ -95,6 +101,6 @@ class EmplModelContact extends AdminModel {
 
     public function getScript()
     {
-        return 'administrator/components/' . $this->option . '/models/forms/contact.js';
+        return 'administrator/components/' . $this->option . '/models/forms/document.js';
     }
 }

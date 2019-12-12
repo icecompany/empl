@@ -1,4 +1,4 @@
-drop table if exists `#__empl_employers`, `#__metro_stations`, `#__metro_lines`, `#__moscow_districts`, `#__moscow_regions`, `#__empl_language_levels`;
+drop table if exists `#__empl_employers`, `#__metro_stations`, `#__empl_languages`, `#__empl_contacts`, `#__empl_documents`, `#__metro_lines`, `#__moscow_districts`, `#__moscow_regions`, `#__empl_language_levels`;
 
 create table `#__empl_language_levels`
 (
@@ -603,4 +603,24 @@ create table `#__empl_contacts`
 
 alter table `#__empl_contacts`
     add description varchar(255) default null null;
+
+create table `#__empl_documents`
+(
+    id int unsigned auto_increment,
+    employerID int unsigned not null,
+    tip enum('passport') default 'passport' not null,
+    series varbinary(255) default null null,
+    num varbinary(255) default null null,
+    dat varbinary(255) default null null,
+    issued varbinary(255) default null null,
+    constraint `#__empl_documents_pk`
+        primary key (id),
+    constraint `#__empl_documents_#__empl_employers_id_fk`
+        foreign key (employerID) references `#__empl_employers` (id)
+            on update cascade on delete cascade
+)
+    comment 'Документы';
+
+create index `#__empl_documents_tip_index`
+    on `#__empl_documents` (tip);
 

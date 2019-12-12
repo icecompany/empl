@@ -5,9 +5,9 @@ use Joomla\CMS\Form\Form;
 
 defined('_JEXEC') or die;
 
-class JFormRuleCityid extends FormRule
+class JFormRuleDocumenttype extends FormRule
 {
-    protected $regex = '^([0-9]{1,})$';
+    protected $regex = '^(passport)$';
 
     public function test(\SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
     {

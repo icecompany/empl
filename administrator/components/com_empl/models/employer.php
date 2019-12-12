@@ -1,6 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Joomla\CMS\MVC\Model\ListModel;
 use \Joomla\String\StringHelper;
 
 class EmplModelEmployer extends AdminModel {
@@ -119,6 +120,14 @@ class EmplModelEmployer extends AdminModel {
             $items[$i]['edit_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_HEAD_ACTION_EDIT'));
         }
         return $items;
+    }
+
+    public function getDocuments(): array
+    {
+        $item = parent::getItem();
+        if ($item->id == null) return array();
+        $model = ListModel::getInstance('Documents', 'EmplModel');
+        return $model->setEmployerID($item->id)->getItems();
     }
 
     private function saveLanguages(int $employerID, array $languages = array()): bool

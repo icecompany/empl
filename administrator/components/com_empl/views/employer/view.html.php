@@ -3,13 +3,14 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\View\HtmlView;
 
 class EmplViewEmployer extends HtmlView {
-    protected $item, $form, $script, $id, $history, $contacts, $persons, $children, $return;
+    protected $item, $form, $script, $id, $history, $contacts, $documents, $children, $return;
 
     public function display($tmp = null) {
         $this->form = $this->get('Form');
         $this->item = $this->get('Item');
         $this->script = $this->get('Script');
         $this->contacts = $this->get('Contacts');
+        $this->documents = $this->get('Documents');
         $this->return = EmplHelper::getReturnUrl();
 
         $this->addToolbar();

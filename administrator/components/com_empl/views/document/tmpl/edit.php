@@ -9,35 +9,25 @@ JHtml::_('formbehavior.chosen', 'select');
 use Joomla\CMS\HTML\HTMLHelper;
 
 HTMLHelper::_('script', $this->script);
-HTMLHelper::_('script', 'com_empl/employer.js', array('version' => 'auto', 'relative' => true));
 ?>
 <script type="text/javascript">
     Joomla.submitbutton = function (task) {
-        if (task === 'employer.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {*/
+        if (task === 'document.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {*/
             Joomla.submitform(task, document.getElementById('adminForm'));
         }
     }
 </script>
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <form action="<?php echo EmplHelper::getActionUrl(); ?>"
       method="post" name="adminForm" id="adminForm" xmlns="http://www.w3.org/1999/html" class="form-validate">
     <div class="row-fluid">
         <div class="span12 form-horizontal">
             <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
             <div class="tab-content">
-                <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::sprintf('COM_EMPL_TAB_EMPLOYER_GENERAL')); ?>
+                <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::sprintf('COM_EMPL_TAB_DOCUMENT_GENERAL')); ?>
                 <div class="row-fluid">
-                    <div class="span6">
+                    <div class="span12">
                         <div>
                             <?php echo $this->loadTemplate('general'); ?>
-                        </div>
-                    </div>
-                    <div class="span6">
-                        <div>
-                            <?php echo $this->loadTemplate('contacts'); ?>
-                        </div>
-                        <div>
-                            <?php echo $this->loadTemplate('documents'); ?>
                         </div>
                     </div>
                 </div>

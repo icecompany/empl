@@ -30,6 +30,20 @@ class EmplHelper
         return $db->setQuery($query)->loadResult();
 	}
 
+    public static function decryptDocumentData(int $documentID)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query
+            ->select("if(series is not null, cast(aes_decrypt(series, @password) as char(255)), '') as series")
+            ->select("if(num is not null, cast(aes_decrypt(num, @password) as char(255)), '') as num")
+            ->select("if(dat is not null, cast(aes_decrypt(dat, @password) as char(255)), '') as dat")
+            ->select("if(issued is not null, cast(aes_decrypt(issued, @password) as char(255)), '') as issued")
+            ->from("#__empl_documents")
+            ->where("id = {$documentID}");
+        return $db->setQuery($query, 0, 1)->loadAssoc();
+	}
+
     public static function getCityTitle(int $cityID)
     {
         $db = JFactory::getDbo();

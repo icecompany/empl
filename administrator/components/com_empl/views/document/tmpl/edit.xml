@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-    <layout title="COM_EMPL_VIEW_CONTACT">
+    <layout title="COM_EMPL_VIEW_DOCUMENT">
         <message>
-            <![CDATA[COM_EMPL_VIEW_CONTACT_DESC]]>
+            <![CDATA[COM_EMPL_VIEW_DOCUMENT_DESC]]>
 		</message>
     </layout>
     <fieldset name="request">

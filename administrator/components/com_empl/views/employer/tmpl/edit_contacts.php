@@ -1,12 +1,13 @@
 <?php
 defined('_JEXEC') or die;
-if ($this->item->id == null) {
-    echo JText::sprintf('COM_EMPL_MSG_SAVE_EMPLOYER_FOR_ADD_CONTACT');
-    return;
-}
 ?>
+<div style="text-align: center;"><h2><?php echo JText::sprintf('COM_EMPL_LAYOUT_CONTACTS');?></h2></div>
 <div>
     <?php
+    if ($this->item->id == null) {
+        echo JText::sprintf('COM_EMPL_MSG_SAVE_EMPLOYER_FOR_ADD_CONTACT');
+        return;
+    }
     $url = JRoute::_("index.php?option=com_empl&amp;task=contact.add&amp;employerID={$this->item->id}&amp;return={$this->return}");
     echo JHtml::link($url, JText::sprintf('COM_EMPL_ACTION_ADD_CONTACT'));
     ?>
