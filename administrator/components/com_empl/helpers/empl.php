@@ -19,6 +19,17 @@ class EmplHelper
 		JHtmlSidebar::addEntry(JText::sprintf('COM_EMPL_TITLE_EMPLOYERS'), 'index.php?option=com_empl&amp;view=employers', $vName === 'employers');
 	}
 
+    public static function decryptEmployerAddress(int $employerID)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query
+            ->select("cast(aes_decrypt(address, @password) as char(255))")
+            ->from("#__empl_employers")
+            ->where("id = {$employerID}");
+        return $db->setQuery($query)->loadResult();
+	}
+
     public static function decryptContactData(int $contactID)
     {
         $db = JFactory::getDbo();

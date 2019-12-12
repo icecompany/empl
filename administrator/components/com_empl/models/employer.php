@@ -20,6 +20,7 @@ class EmplModelEmployer extends AdminModel {
             $item->hidden_city_id = $item->cityID;
             $item->hidden_city_title = EmplHelper::getCityTitle($item->cityID);
             $item->languages = $this->loadLanguages($item->id);
+            $item->address = EmplHelper::decryptEmployerAddress($item->id);
         }
         return $item;
     }
