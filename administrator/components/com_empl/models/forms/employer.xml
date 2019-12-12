@@ -76,6 +76,13 @@
                 validate="metroid"
         />
         <field
+                name="address"
+                type="text"
+                required="true"
+                label="COM_EMPL_FORM_EMPLOYER_ADDRESS_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_ADDRESS_DESC"
+                />
+        <field
                 name="languages"
                 type="Language"
                 label="COM_EMPL_FORM_EMPLOYER_LANGUAGES_LABEL"
