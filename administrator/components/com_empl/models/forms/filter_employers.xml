@@ -51,6 +51,17 @@
             <option value="1">JYES</option>
         </field>
         <field
+                name="car"
+                type="list"
+                label="COM_EMPL_FILTER_SELECT_CAR"
+                description="COM_EMPL_FILTER_SELECT_CAR"
+                onchange="this.form.submit();"
+        >
+            <option value="">COM_EMPL_FILTER_SELECT_CAR</option>
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
                 name="metro"
                 type="Metro"
                 label="COM_EMPL_FILTER_SELECT_METRO"
