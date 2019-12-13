@@ -155,7 +155,14 @@ class EmplModelEmployers extends ListModel
             $arr['city'] = $item->city;
             $arr['metro'] = $item->metro;
             $arr['state'] = $item->state;
-            $result['items'][] = $this->prepare($arr);
+            $arr['languages'] = array();
+            $result['items'][$item->id] = $this->prepare($arr);
+        }
+        $config = array('employerID' => array_keys($result['items']), 'columns' => array('employerID', 'languageID'), 'key' => 'employerID', 'val' => 'languageID');
+        $languages_model = parent::getInstance('Languages', 'EmplModel', $config);
+        $languages = $languages_model->getItems();
+        foreach ($languages as $employerID => $language) {
+            $result['items'][$employerID]['languages'] = $language;
         }
         return $result;
     }

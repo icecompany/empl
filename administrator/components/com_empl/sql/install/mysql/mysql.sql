@@ -728,3 +728,6 @@ INSERT INTO `#__empl_hair_colors` (id, title, color) VALUES (5, 'Седой', nu
 INSERT INTO `#__empl_hair_colors` (id, title, color) VALUES (6, 'Лысый', null);
 INSERT INTO `#__empl_hair_colors` (id, title, color) VALUES (7, 'Неестественных оттенков', null);
 
+create unique index `#__empl_documents_employerID_tip_uindex`
+    on `#__empl_documents` (employerID, tip);
+
