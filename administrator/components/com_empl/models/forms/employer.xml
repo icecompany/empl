@@ -129,29 +129,29 @@
     </fieldset>
     <fieldset name="about_left">
         <field
-            name="height"
-            type="number"
-            label="COM_EMPL_FORM_EMPLOYER_HEIGHT_LABEL"
-            description="COM_EMPL_FORM_EMPLOYER_HEIGHT_DESC"
-            class="span12"
-            required="true"
-            min="100"
-            max="250"
-            default="170"
-            filter="integer"
-            />
+                name="height"
+                type="number"
+                label="COM_EMPL_FORM_EMPLOYER_HEIGHT_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_HEIGHT_DESC"
+                class="span12"
+                required="true"
+                min="100"
+                max="250"
+                default="170"
+                filter="integer"
+        />
         <field
-            name="weight"
-            type="number"
-            label="COM_EMPL_FORM_EMPLOYER_WEIGHT_LABEL"
-            description="COM_EMPL_FORM_EMPLOYER_WEIGHT_DESC"
-            class="span12"
-            required="true"
-            min="40"
-            default="65"
-            max="200"
-            filter="integer"
-            />
+                name="weight"
+                type="number"
+                label="COM_EMPL_FORM_EMPLOYER_WEIGHT_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_WEIGHT_DESC"
+                class="span12"
+                required="true"
+                min="40"
+                default="65"
+                max="200"
+                filter="integer"
+        />
         <field
                 name="clothes_size"
                 type="list"
@@ -267,5 +267,12 @@
             <option value="0">JNO</option>
             <option value="1">JYES</option>
         </field>
+        <field
+                name="hairID"
+                type="hair"
+                label="COM_EMPL_FORM_EMPLOYER_HAIR_COLOR_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_HAIR_COLOR_DESC"
+                required="true"
+        />
     </fieldset>
 </form>

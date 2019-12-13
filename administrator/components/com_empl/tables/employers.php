@@ -33,6 +33,7 @@ class TableEmplEmployers extends Table
     var $weight = null;
     var $height = null;
     var $night = null;
+    var $hairID = null;
     var $experience = null;
     var $clothes_size = null;
     var $foot_size = null;

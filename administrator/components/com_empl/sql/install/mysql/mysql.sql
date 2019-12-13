@@ -1,4 +1,4 @@
-drop table if exists `#__empl_employers`, `#__metro_stations`, `#__empl_languages`, `#__empl_contacts`, `#__empl_documents`, `#__metro_lines`, `#__moscow_districts`, `#__moscow_regions`, `#__empl_language_levels`;
+drop table if exists `#__empl_employers`, `#__metro_stations`, `#__empl_languages`, `#__empl_contacts`, `#__empl_documents`, `#__metro_lines`, `#__moscow_districts`, `#__moscow_regions`, `#__empl_language_levels`, `#__empl_hair_colors`;
 
 create table `#__empl_language_levels`
 (
@@ -698,4 +698,33 @@ alter table `#__empl_documents`
 
 alter table `#__empl_documents`
     add city varbinary(255) default null null after issued;
+
+create table `#__empl_hair_colors`
+(
+    id int unsigned auto_increment,
+    title varchar(255) not null comment 'Название цвета',
+    color varchar(7) default null null comment 'Код цвета',
+    constraint `#__empl_hair_colors_pk`
+        primary key (id)
+)
+    comment 'Цвета волос';
+
+alter table `#__empl_employers`
+    add hairID int unsigned not null after weight;
+
+create index `#__empl_employers_hairID_index`
+    on `#__empl_employers` (hairID);
+
+alter table `#__empl_employers`
+    add constraint `#__empl_employers_#__empl_hair_colors_id_fk`
+        foreign key (hairID) references `#__empl_hair_colors` (id)
+            on update cascade on delete cascade;
+
+INSERT INTO `#__empl_hair_colors` (id, title, color) VALUES (1, 'Шатен', null);
+INSERT INTO `#__empl_hair_colors` (id, title, color) VALUES (2, 'Блондин', null);
+INSERT INTO `#__empl_hair_colors` (id, title, color) VALUES (3, 'Русый', null);
+INSERT INTO `#__empl_hair_colors` (id, title, color) VALUES (4, 'Рыжий', null);
+INSERT INTO `#__empl_hair_colors` (id, title, color) VALUES (5, 'Седой', null);
+INSERT INTO `#__empl_hair_colors` (id, title, color) VALUES (6, 'Лысый', null);
+INSERT INTO `#__empl_hair_colors` (id, title, color) VALUES (7, 'Неестественных оттенков', null);
 
