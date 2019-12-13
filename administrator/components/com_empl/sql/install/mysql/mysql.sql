@@ -1,5 +1,6 @@
+set foreign_key_checks = 0;
 drop table if exists `#__empl_employers`, `#__metro_stations`, `#__empl_languages`, `#__empl_contacts`, `#__empl_documents`, `#__metro_lines`, `#__moscow_districts`, `#__moscow_regions`, `#__empl_language_levels`, `#__empl_hair_colors`;
-
+set foreign_key_checks = 1;
 create table `#__empl_language_levels`
 (
     id int auto_increment,
@@ -8,6 +9,7 @@ create table `#__empl_language_levels`
     constraint `#__empl_language_levels_pk`
         primary key (id)
 )
+character set UTF8 collate utf8_general_ci
     comment 'Уровни знания языков';
 
 INSERT INTO `#__empl_language_levels` (id, title, weight) VALUES (1, 'Английский - Могу прочитать и перевести', 10);
@@ -24,6 +26,7 @@ create table `#__moscow_regions`
         primary key,
     name varchar(255) not null
 )
+    character set UTF8 collate utf8_general_ci
     comment 'Районы Москвы';
 
 create index `#__moscow_regions_name_index`
@@ -136,6 +139,7 @@ create table `#__moscow_districts`
         primary key,
     name varchar(255) not null
 )
+    character set UTF8 collate utf8_general_ci
     comment 'Список округов Москвы';
 
 create index `#__moscow_districts_name_index`
@@ -158,6 +162,7 @@ create table `#__metro_lines`
         primary key,
     name varchar(255) not null
 )
+    character set UTF8 collate utf8_general_ci
     comment 'Список линий метро';
 
 create index `#__metro_lines_name_index`
@@ -204,6 +209,7 @@ create table `#__metro_stations`
         foreign key (regionID) references `#__moscow_regions` (id)
             on update cascade on delete cascade
 )
+    character set UTF8 collate utf8_general_ci
     comment 'Станции Московского метро';
 
 create index `#__metro_stations_id_index`
@@ -548,6 +554,7 @@ create table `#__empl_employers`
     constraint `#__empl_employers_#__metro_stations_id_fk`
         foreign key (metroID) references `#__metro_stations` (id)
 )
+    character set UTF8 collate utf8_general_ci
     comment 'Сотрудники';
 
 create index `#__empl_employers_birthday_index`
@@ -582,6 +589,7 @@ create table `#__empl_languages`
         foreign key (languageID) references `#__empl_language_levels` (id)
             on update cascade on delete cascade
 )
+    character set UTF8 collate utf8_general_ci
     comment 'Таблица с уровнями знаний английского сотрудниками';
 
 create unique index `#__empl_languages_employerID_languageID_uindex`
@@ -599,6 +607,7 @@ create table `#__empl_contacts`
         foreign key (employerID) references `#__empl_employers` (id)
             on update cascade on delete cascade
 )
+    character set UTF8 collate utf8_general_ci
     comment 'Контактные данные сотрудников';
 
 alter table `#__empl_contacts`
@@ -619,6 +628,7 @@ create table `#__empl_documents`
         foreign key (employerID) references `#__empl_employers` (id)
             on update cascade on delete cascade
 )
+    character set UTF8 collate utf8_general_ci
     comment 'Документы';
 
 create index `#__empl_documents_tip_index`
@@ -707,6 +717,7 @@ create table `#__empl_hair_colors`
     constraint `#__empl_hair_colors_pk`
         primary key (id)
 )
+    character set UTF8 collate utf8_general_ci
     comment 'Цвета волос';
 
 alter table `#__empl_employers`
