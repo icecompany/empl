@@ -18,11 +18,12 @@ class EmplModelEmployers extends ListModel
                 'metro',
                 'city',
                 'hair',
+                'driver',
                 'language',
                 'e.state',
             );
         }
-        $this->isGet = EmplHelper::isGet(array('gender', 'birthday', 'search', 'min_age', 'max_age'));
+        $this->isGet = EmplHelper::isGet(array('gender', 'birthday', 'search', 'min_age', 'max_age', 'driver'));
         $this->input = JFactory::getApplication()->input;
         $this->export = false;
         parent::__construct($config);
@@ -47,12 +48,14 @@ class EmplModelEmployers extends ListModel
             $metro = $this->getState('filter.metro');
             $language = $this->getState('filter.language');
             $hair = $this->getState('filter.hair');
+            $driver = $this->getState('filter.driver');
         }
         else {
             $search = $this->input->getString('search', '');
             $gender = $this->input->getString('gender', '');
             $min_age = $this->input->getString('min_age', '');
             $max_age = $this->input->getString('max_age', '');
+            $driver = $this->input->getString('driver', '');
         }
         if (!empty($search)) {
             $search = $db->q("%{$search}%");
@@ -61,6 +64,10 @@ class EmplModelEmployers extends ListModel
         if (!empty($gender)) {
             $gender = $db->q($gender);
             $query->where("e.gender = {$gender}");
+        }
+        if (is_numeric($driver)) {
+            $driver = $db->q($driver);
+            $query->where("e.driver = {$driver}");
         }
         if (is_numeric($min_age) || is_numeric($max_age)) {
             if (is_numeric($min_age) && is_numeric($max_age)) {
@@ -145,6 +152,8 @@ class EmplModelEmployers extends ListModel
         $this->setState('filter.language', $language);
         $hair = $this->getUserStateFromRequest($this->context . '.filter.hair', 'filter_hair', '');
         $this->setState('filter.hair', $hair);
+        $driver = $this->getUserStateFromRequest($this->context . '.filter.driver', 'filter_driver', '', 'string');
+        $this->setState('filter.driver', $driver);
         parent::populateState($ordering, $direction);
     }
 
@@ -157,6 +166,7 @@ class EmplModelEmployers extends ListModel
         $id .= ':' . $this->getState('filter.metro');
         $id .= ':' . $this->getState('filter.language');
         $id .= ':' . $this->getState('filter.hair');
+        $id .= ':' . $this->getState('filter.driver');
         return parent::getStoreId($id);
     }
 

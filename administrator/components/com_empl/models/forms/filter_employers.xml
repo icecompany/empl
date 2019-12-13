@@ -40,6 +40,17 @@
             <option value="">COM_EMPL_FILTER_SELECT_MAX_AGE</option>
         </field>
         <field
+                name="driver"
+                type="list"
+                label="COM_EMPL_FILTER_SELECT_DRIVER"
+                description="COM_EMPL_FILTER_SELECT_DRIVER"
+                onchange="this.form.submit();"
+        >
+            <option value="">COM_EMPL_FILTER_SELECT_DRIVER</option>
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
                 name="metro"
                 type="Metro"
                 label="COM_EMPL_FILTER_SELECT_METRO"
