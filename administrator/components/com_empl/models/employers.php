@@ -17,6 +17,7 @@ class EmplModelEmployers extends ListModel
                 'age', 'min_age', 'max_age',
                 'metro',
                 'city',
+                'hair',
                 'language',
                 'e.state',
             );
@@ -45,6 +46,7 @@ class EmplModelEmployers extends ListModel
             $max_age = $this->getState('filter.max_age');
             $metro = $this->getState('filter.metro');
             $language = $this->getState('filter.language');
+            $hair = $this->getState('filter.hair');
         }
         else {
             $search = $this->input->getString('search', '');
@@ -74,6 +76,10 @@ class EmplModelEmployers extends ListModel
         if (isset($metro) && is_array($metro) && !empty($metro) && count($metro) > 0) {
             $metro = implode(", ", $metro);
             $query->where("e.metroID in ({$metro})");
+        }
+        if (isset($hair) && is_array($hair) && !empty($hair) && count($hair) > 0) {
+            $hair = implode(", ", $hair);
+            $query->where("e.hairID in ({$hair})");
         }
         if (isset($language) && is_array($language) && !empty($language) && count($language) > 0) {
             $ids = $this->getLanguagesID($language);
@@ -137,6 +143,8 @@ class EmplModelEmployers extends ListModel
         $this->setState('filter.metro', $metro);
         $language = $this->getUserStateFromRequest($this->context . '.filter.language', 'filter_language', '');
         $this->setState('filter.language', $language);
+        $hair = $this->getUserStateFromRequest($this->context . '.filter.hair', 'filter_hair', '');
+        $this->setState('filter.hair', $hair);
         parent::populateState($ordering, $direction);
     }
 
@@ -148,6 +156,7 @@ class EmplModelEmployers extends ListModel
         $id .= ':' . $this->getState('filter.max_age');
         $id .= ':' . $this->getState('filter.metro');
         $id .= ':' . $this->getState('filter.language');
+        $id .= ':' . $this->getState('filter.hair');
         return parent::getStoreId($id);
     }
 

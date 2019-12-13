@@ -55,6 +55,14 @@
                 multiple="true"
                 onchange="this.form.submit();"
         />
+        <field
+                name="hair"
+                type="Hair"
+                label="COM_EMPL_FILTER_SELECT_HAIR_COLOR"
+                description="COM_EMPL_FILTER_SELECT_HAIR_COLOR"
+                multiple="true"
+                onchange="this.form.submit();"
+        />
     </fields>
     <fields name="list">
         <field
