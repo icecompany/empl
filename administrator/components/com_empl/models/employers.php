@@ -22,11 +22,12 @@ class EmplModelEmployers extends ListModel
                 'car',
                 'tattoo',
                 'piercing',
+                'smoke',
                 'language',
                 'e.state',
             );
         }
-        $this->isGet = EmplHelper::isGet(array('gender', 'birthday', 'search', 'min_age', 'max_age', 'driver', 'car', 'tattoo', 'piercing'));
+        $this->isGet = EmplHelper::isGet(array('gender', 'birthday', 'search', 'min_age', 'max_age', 'driver', 'car', 'tattoo', 'piercing', 'smoke'));
         $this->input = JFactory::getApplication()->input;
         $this->export = false;
         parent::__construct($config);
@@ -55,6 +56,7 @@ class EmplModelEmployers extends ListModel
             $car = $this->getState('filter.car');
             $tattoo = $this->getState('filter.tattoo');
             $piercing = $this->getState('filter.piercing');
+            $smoke = $this->getState('filter.smoke');
         }
         else {
             $search = $this->input->getString('search', '');
@@ -65,6 +67,7 @@ class EmplModelEmployers extends ListModel
             $car = $this->input->getString('car', '');
             $tattoo = $this->input->getString('tattoo', '');
             $piercing = $this->input->getString('piercing', '');
+            $smoke = $this->input->getString('smoke', '');
         }
         if (!empty($search)) {
             $search = $db->q("%{$search}%");
@@ -81,6 +84,10 @@ class EmplModelEmployers extends ListModel
         if (is_numeric($car)) {
             $car = $db->q($car);
             $query->where("e.car = {$car}");
+        }
+        if (is_numeric($smoke)) {
+            $smoke = $db->q($smoke);
+            $query->where("e.smoke = {$smoke}");
         }
         if (is_numeric($tattoo)) {
             $tattoo = ($tattoo != 0) ? 'is not null' : 'is null';
@@ -181,6 +188,8 @@ class EmplModelEmployers extends ListModel
         $this->setState('filter.tattoo', $tattoo);
         $piercing = $this->getUserStateFromRequest($this->context . '.filter.piercing', 'filter_piercing', '', 'string');
         $this->setState('filter.piercing', $piercing);
+        $smoke = $this->getUserStateFromRequest($this->context . '.filter.smoke', 'filter_smoke', '', 'string');
+        $this->setState('filter.smoke', $smoke);
         parent::populateState($ordering, $direction);
     }
 
@@ -197,6 +206,7 @@ class EmplModelEmployers extends ListModel
         $id .= ':' . $this->getState('filter.car');
         $id .= ':' . $this->getState('filter.tattoo');
         $id .= ':' . $this->getState('filter.piercing');
+        $id .= ':' . $this->getState('filter.smoke');
         return parent::getStoreId($id);
     }
 
