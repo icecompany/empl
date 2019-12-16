@@ -52,6 +52,8 @@ class EmplModelDocuments extends ListModel
             $arr['address'] = $item->address;
             $url = JRoute::_("index.php?option=com_empl&amp;task=document.edit&amp;id={$item->id}&amp;return={$return}");
             $arr['edit_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_HEAD_ACTION_EDIT'));
+            $url = JRoute::_("index.php?option=com_empl&amp;task=document.forceDelete&amp;documentID={$item->id}");
+            $arr['delete_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_HEAD_ACTION_DELETE'));
             $result[] = $arr;
         }
         return $result;

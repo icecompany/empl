@@ -32,7 +32,7 @@ defined('_JEXEC') or die;
                     <td><?php echo $document['dat'];?></td>
                     <td><?php echo $document['issued'];?></td>
                     <td><?php echo $document['edit_link'];?></td>
-                    <td></td>
+                    <td><?php echo $document['delete_link'];?></td>
                 </tr>
             <?php endforeach;?>
         </tbody>
