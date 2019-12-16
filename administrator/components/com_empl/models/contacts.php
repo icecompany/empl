@@ -37,11 +37,15 @@ class EmplModelContacts extends ListModel
         $return = EmplHelper::getReturnUrl();
         foreach ($items as $item) {
             $arr = array();
+            $arr['id'] = $item->id;
+            $arr['token'] = JHtml::_('form.token');
             $arr['tip'] = JText::sprintf("COM_EMPL_FORM_CONTACT_TYPE_{$item->tip}");
             $arr['description'] = $item->description;
             $arr['val'] = $item->val;
             $url = JRoute::_("index.php?option=com_empl&amp;task=contact.edit&amp;id={$item->id}&amp;return={$return}");
             $arr['edit_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_HEAD_ACTION_EDIT'));
+            $url = JRoute::_("index.php?option=com_empl&amp;task=contact.forceDelete&amp;contactID={$item->id}&amp;return={$return}");
+            $arr['delete_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_HEAD_ACTION_DELETE'));
             $result[] = $arr;
         }
         return $result;

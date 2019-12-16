@@ -17,4 +17,27 @@ class EmplControllerContact extends FormController {
         }
         return parent::add();
     }
+
+    public function forceDelete()
+    {
+        $input = $this->input;
+        $contactID = $input->getInt('contactID', 0);
+
+        if ($contactID > 0)
+        {
+            $model = $this->getModel();
+            $model->delete($contactID);
+        }
+
+        $msg = JText::sprintf('COM_EMPL_MSG_CONTACT_DELETED');
+        $url = $_SERVER['HTTP_REFERER'];
+        $this->setRedirect($url, $msg, 'success');
+        $this->redirect();
+        jexit();
+    }
+
+    public function getModel($name = 'Contact', $prefix = 'EmplModel', $config = array('ignore_request' => true))
+    {
+        return parent::getModel($name, $prefix, $config);
+    }
 }

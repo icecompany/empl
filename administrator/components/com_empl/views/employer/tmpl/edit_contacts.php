@@ -26,7 +26,7 @@ defined('_JEXEC') or die;
                     <td><?php echo $contact['val'];?></td>
                     <td><?php echo $contact['description'];?></td>
                     <td><?php echo $contact['edit_link'];?></td>
-                    <td></td>
+                    <td><?php echo $contact['delete_link'];?></td>
                 </tr>
             <?php endforeach;?>
         </tbody>
