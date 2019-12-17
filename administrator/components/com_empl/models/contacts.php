@@ -13,6 +13,7 @@ class EmplModelContacts extends ListModel
             );
         }
         $this->export = false;
+        if (isset($config['employerID'])) $this->employerID = $config['employerID'];
         parent::__construct($config);
     }
 
@@ -49,12 +50,6 @@ class EmplModelContacts extends ListModel
             $result[] = $arr;
         }
         return $result;
-    }
-
-    public function setEmployerID(int $employerID)
-    {
-        $this->employerID = $employerID;
-        return $this;
     }
 
     private $export, $employerID;

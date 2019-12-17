@@ -104,8 +104,8 @@ class EmplModelEmployer extends AdminModel {
     {
         $item = parent::getItem();
         if ($item->id == null) return array();
-        $model = ListModel::getInstance('Contacts', 'EmplModel');
-        return $model->setEmployerID($item->id)->getItems();
+        $model = ListModel::getInstance('Contacts', 'EmplModel', array('employerID' => $item->id));
+        return $model->getItems();
     }
 
     public function getDocuments(): array
