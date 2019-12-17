@@ -112,8 +112,8 @@ class EmplModelEmployer extends AdminModel {
     {
         $item = parent::getItem();
         if ($item->id == null) return array();
-        $model = ListModel::getInstance('Documents', 'EmplModel');
-        return $model->setEmployerID($item->id)->getItems();
+        $model = ListModel::getInstance('Documents', 'EmplModel', array('employerID' => $item->id));
+        return $model->getItems();
     }
 
     private function saveLanguages(int $employerID, array $languages = array()): bool
