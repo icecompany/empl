@@ -67,7 +67,7 @@ class EmplModelEmployer extends AdminModel {
 
     protected function prepareTable($table)
     {
-    	$nulls = array('last_name', 'first_name', 'patronymic', 'birthday', 'tattoo', 'piercing'); //Поля, которые NULL
+    	$nulls = array('last_name', 'first_name', 'patronymic', 'birthday', 'tattoo', 'piercing', 'metroID', 'night', 'address'); //Поля, которые NULL
 
 	    foreach ($nulls as $field)
 	    {

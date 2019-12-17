@@ -75,16 +75,15 @@
         <field
                 name="metroID"
                 type="Metro"
-                required="true"
                 label="COM_EMPL_FORM_EMPLOYER_METRO_LABEL"
                 description="COM_EMPL_FORM_EMPLOYER_METRO_DESC"
-                validate="metroid"
                 class="span12"
-        />
+        >
+                <option value=""></option>
+        </field>
         <field
                 name="address"
                 type="text"
-                required="true"
                 label="COM_EMPL_FORM_EMPLOYER_ADDRESS_LABEL"
                 description="COM_EMPL_FORM_EMPLOYER_ADDRESS_DESC"
                 class="span12"
@@ -108,13 +107,12 @@
         />
         <field
                 name="night"
-                type="radio"
-                required="true"
-                class="btn-group btn-group-yesno"
+                type="list"
                 label="COM_EMPL_FORM_EMPLOYER_NIGHT_LABEL"
                 description="COM_EMPL_FORM_EMPLOYER_NIGHT_DESC"
-                default="0"
+                default=""
         >
+            <option value=""></option>
             <option value="0">JNO</option>
             <option value="1">JYES</option>
         </field>

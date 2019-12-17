@@ -24,7 +24,7 @@ class EmplHelper
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query
-            ->select("cast(aes_decrypt(address, @password) as char(255))")
+            ->select("if(address is not null, cast(aes_decrypt(address, @password) as char(255)), '')")
             ->from("#__empl_employers")
             ->where("id = {$employerID}");
         return $db->setQuery($query)->loadResult();
