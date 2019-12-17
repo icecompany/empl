@@ -28,9 +28,9 @@ class EmplModelLanguages extends ListModel
             $query
                 ->leftJoin("#__empl_language_levels el on el.id = l.languageID");
         }
-        $this->columns = $db->qn($this->columns);
-        if (!empty($this->columns)) {
-            $columns = implode(", ", $this->columns);
+        $columns = $db->qn($this->columns);
+        if (!empty($columns)) {
+            $columns = (is_array($columns)) ? implode(", ", $columns) : $columns;
         }
         else {
             $columns = "l.*";
@@ -40,13 +40,13 @@ class EmplModelLanguages extends ListModel
             ->from("#__empl_languages l");
         if (is_numeric($this->employerID))
         {
-            $this->employerID = $db->q($this->employerID);
-            $query->where("l.employerID = {$this->employerID}");
+            $employerID = $db->q($this->employerID);
+            $query->where("l.employerID = {$employerID}");
         }
         if (is_array($this->employerID))
         {
-            $this->employerID = $db->q($this->employerID);
-            $employerID = implode(", ", $this->employerID);
+            $employerID = $db->q($this->employerID);
+            $employerID = implode(", ", $employerID);
             $query->where("l.employerID in ({$employerID})");
         }
         $this->setState('list.limit', 0);
@@ -58,7 +58,7 @@ class EmplModelLanguages extends ListModel
     {
         $items = parent::getItems();
         $result = array();
-        if (is_string($this->columns) && !empty($this->columns) == 1 && is_numeric($this->employerID)) {
+        if (is_string($this->columns) && is_numeric($this->employerID)) {
             $column = $this->columns;
             foreach ($items as $item) {
                 $result[] = $item->$column;

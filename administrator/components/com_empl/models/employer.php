@@ -136,13 +136,9 @@ class EmplModelEmployer extends AdminModel {
 
     private function loadLanguages(int $employerID): array
     {
-        $db = $this->getDbo();
-        $query = $db->getQuery(true);
-        $query
-            ->select("languageID")
-            ->from("#__empl_languages")
-            ->where("employerID = {$employerID}");
-        return $db->setQuery($query)->loadColumn() ?? array();
+        $params = array('employerID' => $employerID, 'columns' => 'languageID');
+        $model = ListModel::getInstance('Languages', 'EmplModel', $params);
+        return $model->getItems() ?? array();
     }
 
     private function addLanguage(int $employerID, int $languageID): void
