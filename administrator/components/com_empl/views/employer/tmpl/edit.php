@@ -39,10 +39,10 @@ HTMLHelper::_('script', 'com_empl/employer.js', array('version' => 'auto', 'rela
                     </div>
                     <div class="span6">
                         <div>
-                            <?php echo $this->loadTemplate('contacts'); ?>
+                            <?php echo $this->loadTemplate('documents'); ?>
                         </div>
                         <div>
-                            <?php echo $this->loadTemplate('documents'); ?>
+                            <?php echo $this->loadTemplate('contacts'); ?>
                         </div>
                     </div>
                 </div>

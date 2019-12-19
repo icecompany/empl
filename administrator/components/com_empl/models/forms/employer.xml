@@ -88,6 +88,14 @@
                 description="COM_EMPL_FORM_EMPLOYER_ADDRESS_DESC"
                 class="span12"
         />
+        <field
+                name="hidden_city_id"
+                type="hidden"
+        />
+        <field
+                name="hidden_city_title"
+                type="hidden"
+        />
     </fieldset>
     <fieldset name="experience">
         <field
@@ -116,14 +124,28 @@
             <option value="0">JNO</option>
             <option value="1">JYES</option>
         </field>
+    </fieldset>
+    <fieldset name="interview">
         <field
-                name="hidden_city_id"
-                type="hidden"
+                name="interview_date"
+                type="calendar"
+                label="COM_EMPL_FORM_EMPLOYER_INTERVIEW_DATE_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_INTERVIEW_DATE_DESC"
+                default=""
+                format="%d.%m.%Y %H:%M"
+                showtime="true"
         />
         <field
-                name="hidden_city_title"
-                type="hidden"
-        />
+                name="interview_state"
+                type="list"
+                label="COM_EMPL_FORM_EMPLOYER_INTERVIEW_STATE_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_INTERVIEW_STATE_DESC"
+                default=""
+                >
+            <option value=""></option>
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
     </fieldset>
     <fieldset name="about_left">
         <field

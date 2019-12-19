@@ -62,3 +62,33 @@ INSERT INTO `#__empl_places` (id, projectID, title) VALUES (13, 11, 'Голиц�
 INSERT INTO `#__empl_places` (id, projectID, title) VALUES (14, 11, 'Кубинка');
 INSERT INTO `#__empl_places` (id, projectID, title) VALUES (15, 11, 'Селятино');
 
+create table `#__empl_work`
+(
+    id int unsigned auto_increment,
+    employerID int unsigned not null,
+    projectID int not null,
+    status tinyint default 2 not null comment 'Статус участия:
+0 - не прошёл интервью
+1 - прошёл интервью
+2 - приглашён на интервью',
+    dat timestamp not null comment 'Дата интервью',
+    block tinyint default 0 not null comment 'Чёрный список',
+    comment text default null null,
+    constraint `#__empl_work_pk`
+        primary key (id),
+    constraint `#__empl_work_#__empl_employers_id_fk`
+        foreign key (employerID) references `#__empl_employers` (id),
+    constraint `#__empl_work_#__prj_projects_id_fk`
+        foreign key (projectID) references `#__prj_projects` (id)
+)
+    comment 'Участие волонтёров в проектах';
+
+create index `#__empl_work_block_index`
+    on `#__empl_work` (block);
+
+create unique index `#__empl_work_employerID_projectID_uindex`
+    on `#__empl_work` (employerID, projectID);
+
+create index `#__empl_work_status_index`
+    on `#__empl_work` (status);
+

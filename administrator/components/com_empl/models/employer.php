@@ -36,12 +36,6 @@ class EmplModelEmployer extends AdminModel {
         return $s1 && $s2;
     }
 
-
-    public function delete(&$pks)
-    {
-        return parent::delete($pks);
-    }
-
     public function getForm($data = array(), $loadData = true)
     {
         $form = $this->loadForm(
