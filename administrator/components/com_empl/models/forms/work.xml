@@ -36,7 +36,8 @@
                 type="calendar"
                 label="COM_EMPL_FORM_WORK_DATE_LABEL"
                 description="COM_EMPL_FORM_WORK_DATE_DESC"
-                format="%d.%m.%Y"
+                showtime="true"
+                format="%d.%m.%Y %H:%M"
         />
         <field
                 name="comment"

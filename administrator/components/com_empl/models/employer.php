@@ -94,6 +94,14 @@ class EmplModelEmployer extends AdminModel {
         return 'administrator/components/' . $this->option . '/models/forms/employer.js';
     }
 
+    public function getWorks(): array
+    {
+        $item = parent::getItem();
+        if ($item->id == null) return array();
+        $model = ListModel::getInstance('Works', 'EmplModel', array('employerID' => $item->id));
+        return $model->getItems();
+    }
+
     public function getContacts(): array
     {
         $item = parent::getItem();

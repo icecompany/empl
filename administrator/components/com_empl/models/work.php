@@ -14,6 +14,13 @@ class EmplModelWork extends AdminModel {
         if ($item->id == null) {
             $item->employerID = $this->getState('employerID');
         }
+        else {
+            $view = JFactory::getApplication()->input->getString('view', 'work');
+            if ($view == 'work' && $item->dat != null) {
+                $dat = JDate::getInstance($item->dat, '+3');
+                $item->dat = $dat;
+            }
+        }
         $item->title = $this->getEmployerTitle($item->employerID);
         return $item;
     }
