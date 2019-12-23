@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_empl/models/rules"
+      addfieldpath="/administrator/components/com_projects/models/fields">
+    <fieldset name="general">
+        <field
+                name="id"
+                type="hidden"
+        />
+        <field
+                name="employerID"
+                type="hidden"
+        />
+        <field
+                name="projectID"
+                type="Project"
+                required="true"
+                label="COM_EMPL_FORM_WORK_PROJECT_LABEL"
+                description="COM_EMPL_FORM_WORK_PROJECT_DESC"
+        />
+        <field
+                name="status"
+                type="list"
+                required="true"
+                label="COM_EMPL_FORM_WORK_STATUS_LABEL"
+                description="COM_EMPL_FORM_WORK_STATUS_DESC"
+                default="2"
+        >
+            <option value="2">COM_EMPL_FORM_WORK_STATUS_2</option>
+            <option value="1">COM_EMPL_FORM_WORK_STATUS_1</option>
+            <option value="0">COM_EMPL_FORM_WORK_STATUS_0</option>
+            <option value="-1">COM_EMPL_FORM_WORK_STATUS_-1</option>
+        </field>
+        <field
+                name="dat"
+                type="calendar"
+                label="COM_EMPL_FORM_WORK_DATE_LABEL"
+                description="COM_EMPL_FORM_WORK_DATE_DESC"
+                format="%d.%m.%Y"
+        />
+        <field
+                name="comment"
+                type="textarea"
+                label="COM_EMPL_FORM_WORK_COMMENT_LABEL"
+                description="COM_EMPL_FORM_WORK_COMMENT_DESC"
+                autocomplete="false"
+        />
+    </fieldset>
+</form>
