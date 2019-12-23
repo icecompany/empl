@@ -16,6 +16,7 @@
                 required="true"
                 label="COM_EMPL_FORM_WORK_PROJECT_LABEL"
                 description="COM_EMPL_FORM_WORK_PROJECT_DESC"
+                default="11"
         />
         <field
                 name="status"

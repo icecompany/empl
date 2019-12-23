@@ -39,6 +39,9 @@ HTMLHelper::_('script', 'com_empl/employer.js', array('version' => 'auto', 'rela
                     </div>
                     <div class="span6">
                         <div>
+                            <?php echo $this->loadTemplate('projects'); ?>
+                        </div>
+                        <div>
                             <?php echo $this->loadTemplate('documents'); ?>
                         </div>
                         <div>

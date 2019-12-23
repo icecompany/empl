@@ -68,11 +68,11 @@ create table `#__empl_work`
     employerID int unsigned not null,
     projectID int not null,
     status tinyint default 2 not null comment 'Статус участия:
+-1 - уволен
 0 - не прошёл интервью
 1 - прошёл интервью
 2 - приглашён на интервью',
     dat timestamp not null comment 'Дата интервью',
-    block tinyint default 0 not null comment 'Чёрный список',
     comment text default null null,
     constraint `#__empl_work_pk`
         primary key (id),
@@ -82,9 +82,6 @@ create table `#__empl_work`
         foreign key (projectID) references `#__prj_projects` (id)
 )
     comment 'Участие волонтёров в проектах';
-
-create index `#__empl_work_block_index`
-    on `#__empl_work` (block);
 
 create unique index `#__empl_work_employerID_projectID_uindex`
     on `#__empl_work` (employerID, projectID);
