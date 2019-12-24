@@ -53,6 +53,10 @@ class EmplModelWorks extends ListModel
             $arr['edit_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_HEAD_ACTION_EDIT'));
             $url = JRoute::_("index.php?option=com_empl&amp;task=work.forceDelete&amp;workID={$item->id}&amp;return={$return}");
             $arr['delete_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_HEAD_ACTION_DELETE'));
+            if ($item->status == '1' || $item->status == '-1') {
+                $url = JRoute::_("index.php?option=com_empl&amp;view=schedules&amp;workID={$item->id}");
+                $arr['schedule_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_ACTION_GO_TO_SCHEDULE'), array('target' => '_blank'));
+            }
             $result[] = $arr;
         }
         return $result;

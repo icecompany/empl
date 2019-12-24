@@ -17,6 +17,7 @@ defined('_JEXEC') or die;
             <th><?php echo JText::sprintf('COM_EMPL_HEAD_EMPLOYER_WORK_PROJECT');?></th>
             <th><?php echo JText::sprintf('COM_EMPL_HEAD_EMPLOYER_WORK_STATUS');?></th>
             <th><?php echo JText::sprintf('COM_EMPL_HEAD_EMPLOYER_WORK_DATE');?></th>
+            <th><?php echo JText::sprintf('COM_EMPL_HEAD_EMPLOYER_WORK_SCHEDULE');?></th>
             <th><?php echo JText::sprintf('COM_EMPL_HEAD_ACTION_EDIT');?></th>
             <th><?php echo JText::sprintf('COM_EMPL_HEAD_ACTION_DELETE');?></th>
         </tr>
@@ -27,6 +28,7 @@ defined('_JEXEC') or die;
                 <td><?php echo $work['project'];?></td>
                 <td><?php echo $work['status'];?></td>
                 <td><?php echo $work['dat'];?></td>
+                <td><?php echo $work['schedule_link'];?></td>
                 <td><?php echo $work['edit_link'];?></td>
                 <td><?php echo $work['delete_link'];?></td>
             </tr>
