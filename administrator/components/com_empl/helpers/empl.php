@@ -19,6 +19,22 @@ class EmplHelper
 		JHtmlSidebar::addEntry(JText::sprintf('COM_EMPL_TITLE_EMPLOYERS'), 'index.php?option=com_empl&amp;view=employers', $vName === 'employers');
 	}
 
+    /**
+     * @param string $last_name фамилия
+     * @param string $first_name имя
+     * @param string $patronymic отчество
+     *
+     * @return string Фамилия имя отвечтво
+     *
+     * @since version 1.1.1
+     */
+    public static function getEmployerFio(string $last_name, $first_name = '', $patronymic = ''): string
+    {
+        $fio = array($last_name, $first_name, $patronymic);
+        foreach ($fio as $i => $item) if (empty($item)) unset($fio[$i]);
+        return implode(" ", $fio);
+	}
+
     public static function decryptEmployerAddress(int $employerID)
     {
         $db = JFactory::getDbo();
