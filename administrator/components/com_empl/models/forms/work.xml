@@ -38,6 +38,7 @@
                 description="COM_EMPL_FORM_WORK_DATE_DESC"
                 showtime="true"
                 format="%d.%m.%Y %H:%M"
+                filter="none"
         />
         <field
                 name="comment"
