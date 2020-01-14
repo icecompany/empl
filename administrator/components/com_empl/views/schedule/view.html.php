@@ -17,7 +17,8 @@ class EmplViewSchedule extends HtmlView {
     }
 
     protected function addToolbar() {
-        JToolbarHelper::title(JText::sprintf('COM_EMPL_TITLE_SCHEDULE'), '');
+        $title = $this->get('Title');
+        JToolbarHelper::title($title, 'calendar');
 	    JToolBarHelper::apply('schedule.apply', 'JTOOLBAR_APPLY');
         JToolbarHelper::save('schedule.save', 'JTOOLBAR_SAVE');
         JToolbarHelper::cancel('schedule.cancel', 'JTOOLBAR_CLOSE');

@@ -58,6 +58,26 @@ class EmplModelSchedule extends AdminModel {
         parent::prepareTable($table);
     }
 
+    public function getTitle(): string
+    {
+        $item = $this->getItem();
+        $workID = ($item->id === false) ? $this->getState("workID", 0) : $item->workID;
+        if ($workID > 0) {
+            $model = AdminModel::getInstance('Work', 'EmplModel');
+            $item = $model->getItem($workID);
+            $employerID = $item->employerID;
+            $projectID = $item->projectID;
+            $project = EmplHelper::getProjectTitle($projectID);
+            $model = AdminModel::getInstance('Employer', 'EmplModel');
+            $item = $model->getItem($employerID);
+            $fio = EmplHelper::getEmployerFio($item->last_name, $item->first_name, $item->patronymic);
+            return JText::sprintf('COM_EMPL_TITLE_SCHEDULES_EMPLOYER_IN_PROJECT', $fio, $project);
+        }
+        else {
+            return JText::sprintf('COM_EMPL_TITLE_SCHEDULES');
+        }
+    }
+
     protected function canEditState($record)
     {
         $user = JFactory::getUser();
