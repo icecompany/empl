@@ -12,28 +12,25 @@ foreach ($this->items['items'] as $i => $item) :
             <?php echo ++$ii; ?>
         </td>
         <td>
-            <?php echo $item['last_name'];?>
+            <?php echo $item['fio'];?>
         </td>
         <td>
-            <?php echo $item['first_name'];?>
+            <?php echo $item['function'];?>
         </td>
         <td>
-            <?php echo $item['patronymic'];?>
+            <?php echo $item['place'];?>
         </td>
         <td>
-            <?php echo $item['gender'];?>
+            <?php echo $item['start_time'];?>
         </td>
         <td>
-            <?php echo $item['birthday'];?>
+            <?php echo $item['end_time'];?>
         </td>
         <td>
-            <?php echo $item['age'];?>
+            <?php echo $item['curator'];?>
         </td>
         <td>
-            <?php echo $item['metro'];?>
-        </td>
-        <td>
-            <?php echo $item['city'];?>
+            <?php echo $item['comment'];?>
         </td>
         <td>
             <?php echo $item['id'];?>

@@ -1,5 +1,6 @@
 <?php
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\CMS\MVC\Model\AdminModel;
 defined('_JEXEC') or die;
 
 class EmplModelSchedules extends ListModel
@@ -90,6 +91,25 @@ class EmplModelSchedules extends ListModel
         $data['fio'] = JHtml::link($url, $data['last_name']);
 
         return $data;
+    }
+
+    public function getTitle(): string
+    {
+        $workID = ($this->isGet === false) ? $this->getState('filter.workID', '') : $this->input->getString('workID', '');
+        if (!empty($workID)) {
+            $model = AdminModel::getInstance('Work', 'EmplModel');
+            $item = $model->getItem($workID);
+            $employerID = $item->employerID;
+            $projectID = $item->projectID;
+            $project = EmplHelper::getProjectTitle($projectID);
+            $model = AdminModel::getInstance('Employer', 'EmplModel');
+            $item = $model->getItem($employerID);
+            $fio = EmplHelper::getEmployerFio($item->last_name, $item->first_name, $item->patronymic);
+            return JText::sprintf('COM_EMPL_TITLE_SCHEDULES_EMPLOYER_IN_PROJECT', $fio, $project);
+        }
+        else {
+            return JText::sprintf('COM_EMPL_TITLE_SCHEDULES');
+        }
     }
 
     /* Сортировка по умолчанию */

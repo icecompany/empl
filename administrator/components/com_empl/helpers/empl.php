@@ -19,6 +19,17 @@ class EmplHelper
 		JHtmlSidebar::addEntry(JText::sprintf('COM_EMPL_TITLE_EMPLOYERS'), 'index.php?option=com_empl&amp;view=employers', $vName === 'employers');
 	}
 
+    public static function getProjectTitle(int $projectID): string
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query
+            ->select("title_ru")
+            ->from("`#__prj_projects`")
+            ->where("id = {$projectID}");
+        return $db->setQuery($query)->loadResult();
+	}
+
     /**
      * @param string $last_name фамилия
      * @param string $first_name имя
