@@ -8,8 +8,9 @@ class EmplControllerSchedule extends FormController {
         parent::__construct($config);
 
         $uri = JUri::getInstance($_SERVER['HTTP_REFERER']);
-        $task = JFactory::getApplication()->input->getString('task', '');
-        $this->workID = ($task == 'add' || $task == 'edit') ? $uri->getVar('workID', 0) : JFactory::getApplication()->getUserStateFromRequest("{$this->option}.workID", 'workID');
+        $input = JFactory::getApplication()->input;
+        $task = $input->getString('task', '');
+        $this->workID = ($task == 'add') ? $uri->getVar('workID', 0) : JFactory::getApplication()->getUserStateFromRequest("{$this->option}.workID", 'workID');
         $this->url = "index.php?option={$this->option}&view=schedules";
     }
     public function add()
@@ -21,6 +22,8 @@ class EmplControllerSchedule extends FormController {
     public function save($key = null, $urlVar = null)
     {
         $s1 = parent::save($key, $urlVar);
+        $workID = $_POST['jform']['workID'];
+        if ($workID > 0) $this->workID = $workID;
         if ($this->workID > 0)
         {
             $this->url .= "&workID={$this->workID}";
