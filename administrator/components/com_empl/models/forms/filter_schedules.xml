@@ -10,6 +10,16 @@
                 autocomplete="off"
                 class="js-stools-search-string"
         />
+        <field
+                name="dat"
+                type="calendar"
+                label="COM_EMPL_FILTER_SELECT_DATE"
+                description="COM_EMPL_FILTER_SELECT_DATE"
+                hint="COM_EMPL_FILTER_SELECT_DATE"
+                filter="none"
+                format="%d.%m.%Y"
+                onchange="this.form.submit();"
+        />
     </fields>
     <fields name="list">
         <field

@@ -11,8 +11,12 @@ class EmplModelSchedules extends ListModel
             $config['filter_fields'] = array(
                 's.id',
                 'e.last_name',
-                'e.first_name',
-                'e.patronymic',
+                'dat',
+                'p.title_ru',
+                'f.title',
+                's.start_time',
+                's.end_time',
+                'search',
             );
         }
         $this->isGet = EmplHelper::isGet(array('workID'));
@@ -50,6 +54,14 @@ class EmplModelSchedules extends ListModel
         }
         if (!empty($workID)) {
             $query->where("s.workID = {$workID}");
+        }
+        $dat = $this->getState('filter.dat');
+        if (!empty($dat)) {
+            $dat_1 = JDate::getInstance($dat)->setTime(0, 0, 0)->toSql();
+            $dat_1 = $db->q($dat_1);
+            $dat_2 = JDate::getInstance($dat)->setTime(23, 59, 59)->toSql();
+            $dat_2 = $db->q($dat_2);
+            $query->where("s.start_time > {$dat_1} and s.end_time < {$dat_2}");
         }
 
         /* Сортировка */
@@ -124,6 +136,8 @@ class EmplModelSchedules extends ListModel
         $this->setState('filter.search', $search);
         $workID = $this->getUserStateFromRequest($this->context . '.filter.workID', 'filter_workID', '', 'string');
         $this->setState('filter.workID', $workID);
+        $dat = $this->getUserStateFromRequest($this->context . '.filter.dat', 'filter_dat', '', 'string');
+        $this->setState('filter.dat', $dat);
         parent::populateState($ordering, $direction);
     }
 
@@ -131,6 +145,7 @@ class EmplModelSchedules extends ListModel
     {
         $id .= ':' . $this->getState('filter.search');
         $id .= ':' . $this->getState('filter.workID');
+        $id .= ':' . $this->getState('filter.dat');
         return parent::getStoreId($id);
     }
 
