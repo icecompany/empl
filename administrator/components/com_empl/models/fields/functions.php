@@ -13,17 +13,15 @@ class JFormFieldFunctions extends JFormFieldList
         $db =& JFactory::getDbo();
         $query = $db->getQuery(true);
         $query
-            ->select("f.`id`, f.`title`, p.title_ru as project")
+            ->select("f.`id`, f.`title`")
             ->from("`#__empl_functions` f")
-            ->leftJoin("`#__prj_projects` p on p.id = f.projectID")
             ->order("f.title");
         $result = $db->setQuery($query)->loadObjectList();
 
         $options = array();
 
         foreach ($result as $item) {
-            $name = sprintf("%s (%s)", $item->title, $item->project);
-            $options[] = JHtml::_('select.option', $name);
+            $options[] = JHtml::_('select.option', $item->id, $item->title);
         }
 
         if (!$this->loadExternally) {
