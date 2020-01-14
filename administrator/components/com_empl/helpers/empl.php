@@ -17,6 +17,7 @@ class EmplHelper
 	public function addSubmenu($vName)
 	{
 		JHtmlSidebar::addEntry(JText::sprintf('COM_EMPL_TITLE_EMPLOYERS'), 'index.php?option=com_empl&amp;view=employers', $vName === 'employers');
+		JHtmlSidebar::addEntry(JText::sprintf('COM_EMPL_TITLE_SCHEDULES'), 'index.php?option=com_empl&amp;view=schedules', $vName === 'schedules');
 	}
 
     public static function getProjectTitle(int $projectID): string
