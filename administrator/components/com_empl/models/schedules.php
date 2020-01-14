@@ -38,13 +38,12 @@ class EmplModelSchedules extends ListModel
             ->leftJoin("`#__empl_places` pl on pl.id = s.placeID")
             ->leftJoin("`#__empl_employers` e on e.id = w.employerID");
         if ($this->isGet === false) {
-            $search = $this->getState('filter.search');
             $workID = $this->getState('filter.workID');
         }
         else {
-            $search = $this->input->getString('search', '');
             $workID = $this->input->getString('workID', '');
         }
+        $search = $this->getState('filter.search');
         if (!empty($search)) {
             $search = $db->q("%{$search}%");
             $query->where("(e.first_name LIKE {$search} or e.last_name LIKE {$search} or e.patronymic LIKE {$search})");
