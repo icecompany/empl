@@ -13,9 +13,11 @@ class EmplModelSchedules extends ListModel
                 'e.last_name',
                 'dat',
                 'p.title_ru',
+                'pl.title',
                 'f.title',
                 's.start_time',
                 's.end_time',
+                's.curator',
                 'search',
             );
         }
