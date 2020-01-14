@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_empl/models/rules">
+    <fieldset name="general">
+        <field
+                name="id"
+                type="hidden"
+        />
+        <field
+                name="workID"
+                type="hidden"
+        />
+        <field
+                name="functionID"
+                type="Functions"
+                required="true"
+                label="COM_EMPL_FORM_SCHEDULE_FUNCTION_LABEL"
+                description="COM_EMPL_FORM_SCHEDULE_FUNCTION_DESC"
+        />
+        <field
+                name="placeID"
+                type="Places"
+                label="COM_EMPL_FORM_SCHEDULE_PLACE_LABEL"
+                description="COM_EMPL_FORM_SCHEDULE_PLACE_DESC"
+                required="true"
+        />
+        <field
+                name="curator"
+                type="radio"
+                label="COM_EMPL_FORM_SCHEDULE_CURATOR_LABEL"
+                description="COM_EMPL_FORM_SCHEDULE_CURATOR_DESC"
+                class="btn-group btn-group-yesno"
+                default="0"
+        >
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+        </field>
+        <field
+                name="start_time"
+                type="calendar"
+                label="COM_EMPL_FORM_SCHEDULE_START_TIME_LABEL"
+                description="COM_EMPL_FORM_SCHEDULE_START_TIME_DESC"
+                showtime="true"
+                filter="none"
+                format="%d.%m.%Y %H:%M"
+        />
+        <field
+                name="end_time"
+                type="calendar"
+                label="COM_EMPL_FORM_SCHEDULE_END_TIME_LABEL"
+                description="COM_EMPL_FORM_SCHEDULE_END_TIME_DESC"
+                showtime="true"
+                filter="none"
+                format="%d.%m.%Y %H:%M"
+        />
+        <field
+                name="comment"
+                type="textarea"
+                label="COM_EMPL_FORM_SCHEDULE_COMMENT_LABEL"
+                description="COM_EMPL_FORM_SCHEDULE_COMMENT_DESC"
+                autocomplete="false"
+        />
+    </fieldset>
+</form>

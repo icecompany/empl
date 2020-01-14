@@ -7,7 +7,7 @@ class EmplViewSchedules extends HtmlView
 {
 	protected $helper;
 	protected $sidebar = '';
-	public $items, $pagination, $uid, $state, $links, $filterForm, $activeFilters;
+	public $items, $pagination, $uid, $state, $links, $filterForm, $activeFilters, $workID;
 
 	public function display($tpl = null)
 	{
@@ -16,6 +16,7 @@ class EmplViewSchedules extends HtmlView
 	    $this->state = $this->get('State');
         $this->filterForm = $this->get('FilterForm');
         $this->activeFilters = $this->get('ActiveFilters');
+        $this->workID = $this->get('WorkID');
 
         // Show the toolbar
 		$this->toolbar();
@@ -45,6 +46,9 @@ class EmplViewSchedules extends HtmlView
         if (EmplHelper::canDo('core.delete'))
         {
             JToolbarHelper::deleteList('COM_EMPL_REMOVE_QUESTION_EMPLOYER', 'schedules.delete');
+        }
+        if ($this->workID > 0) {
+            JToolbarHelper::custom('schedules.reset', 'calendar-2', '', JText::sprintf('COM_EMPL_ACTION_RESET_WORK_ID'), false);
         }
 		if (EmplHelper::canDo('core.admin'))
 		{

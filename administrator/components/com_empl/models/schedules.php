@@ -32,10 +32,10 @@ class EmplModelSchedules extends ListModel
             ->select("f.title as function")
             ->select("s.*")
             ->from("#__empl_schedule s")
-            ->leftJoin("`#__empl_work` w on w.id = e.workID")
+            ->leftJoin("`#__empl_work` w on w.id = s.workID")
             ->leftJoin("`#__prj_projects` p on p.id = w.projectID")
-            ->leftJoin("`#__empl_functions` f on f.id = w.functionID")
-            ->leftJoin("`#__empl_places` pl on pl.id = w.placeID")
+            ->leftJoin("`#__empl_functions` f on f.id = s.functionID")
+            ->leftJoin("`#__empl_places` pl on pl.id = s.placeID")
             ->leftJoin("`#__empl_employers` e on e.id = w.employerID");
         if ($this->isGet === false) {
             $search = $this->getState('filter.search');
@@ -73,6 +73,7 @@ class EmplModelSchedules extends ListModel
             $arr['project'] = $item->project;
             $arr['function'] = $item->function;
             $arr['place'] = $item->place;
+            $arr['comment'] = $item->comment;
             $arr['curator'] = JText::sprintf((!$item->curator) ? 'JNO' : 'JYES');
             $start_time = JDate::getInstance($item->start_time);
             $arr['start_time'] = $start_time->format("d.m.Y H:i");
@@ -88,7 +89,7 @@ class EmplModelSchedules extends ListModel
         if ($this->export) return $data;
         $query = array("option" => $this->option, "task" => "schedule.edit", "id" => $data['id']);
         $url = JRoute::_("index.php?".http_build_query($query));
-        $data['fio'] = JHtml::link($url, $data['last_name']);
+        $data['fio'] = JHtml::link($url, $data['fio']);
 
         return $data;
     }
@@ -110,6 +111,11 @@ class EmplModelSchedules extends ListModel
         else {
             return JText::sprintf('COM_EMPL_TITLE_SCHEDULES');
         }
+    }
+
+    public function getWorkID()
+    {
+        return ($this->isGet === false) ? $this->getState('workID', 0) : JFactory::getApplication()->input->getInt('workID', 0);
     }
 
     /* Сортировка по умолчанию */
