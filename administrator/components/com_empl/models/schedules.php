@@ -19,6 +19,9 @@ class EmplModelSchedules extends ListModel
                 's.end_time',
                 's.curator',
                 'search',
+                'curator',
+                'function',
+                'place',
             );
         }
         $this->isGet = EmplHelper::isGet(array('workID'));
@@ -64,6 +67,21 @@ class EmplModelSchedules extends ListModel
             $dat_2 = JDate::getInstance($dat)->setTime(23, 59, 59)->toSql();
             $dat_2 = $db->q($dat_2);
             $query->where("s.start_time > {$dat_1} and s.end_time < {$dat_2}");
+        }
+        $function = $this->getState('filter.function');
+        if (is_numeric($function)) {
+            $function = $db->q($function);
+            $query->where("s.functionID = {$function}");
+        }
+        $place = $this->getState('filter.place');
+        if (is_numeric($place)) {
+            $place = $db->q($place);
+            $query->where("s.placeID = {$place}");
+        }
+        $curator = $this->getState('filter.curator');
+        if (is_numeric($curator)) {
+            $curator = $db->q($curator);
+            $query->where("s.curator = {$curator}");
         }
 
         /* Сортировка */
@@ -140,6 +158,12 @@ class EmplModelSchedules extends ListModel
         $this->setState('filter.workID', $workID);
         $dat = $this->getUserStateFromRequest($this->context . '.filter.dat', 'filter_dat', '', 'string');
         $this->setState('filter.dat', $dat);
+        $function = $this->getUserStateFromRequest($this->context . '.filter.function', 'filter_function', '', 'string');
+        $this->setState('filter.function', $function);
+        $place = $this->getUserStateFromRequest($this->context . '.filter.place', 'filter_place', '', 'string');
+        $this->setState('filter.place', $place);
+        $curator = $this->getUserStateFromRequest($this->context . '.filter.curator', 'filter_curator', '', 'string');
+        $this->setState('filter.curator', $curator);
         parent::populateState($ordering, $direction);
     }
 
@@ -148,6 +172,9 @@ class EmplModelSchedules extends ListModel
         $id .= ':' . $this->getState('filter.search');
         $id .= ':' . $this->getState('filter.workID');
         $id .= ':' . $this->getState('filter.dat');
+        $id .= ':' . $this->getState('filter.function');
+        $id .= ':' . $this->getState('filter.place');
+        $id .= ':' . $this->getState('filter.curator');
         return parent::getStoreId($id);
     }
 
