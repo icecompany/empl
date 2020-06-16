@@ -1,4 +1,4 @@
-create table `#__empl_schedule`
+create table if not exists `#__empl_schedule`
 (
     id int unsigned auto_increment,
     workID int unsigned not null,

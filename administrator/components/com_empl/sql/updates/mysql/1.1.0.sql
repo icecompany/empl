@@ -1,4 +1,4 @@
-create table `#__empl_functions`
+create table if not exists `#__empl_functions`
 (
     id int unsigned auto_increment,
     title varchar(255) not null comment 'Название функционала',
@@ -31,7 +31,7 @@ INSERT INTO `#__empl_functions` (id, title) VALUES (18, 'Фасовщик');
 INSERT INTO `#__empl_functions` (id, title) VALUES (19, 'ЦУВ');
 INSERT INTO `#__empl_functions` (id, title) VALUES (20, 'Шлагбаум');
 
-create table `#__empl_places`
+create table if not exists `#__empl_places`
 (
     id int unsigned auto_increment,
     projectID int not null,
@@ -62,7 +62,7 @@ INSERT INTO `#__empl_places` (id, projectID, title) VALUES (13, 11, 'Голиц�
 INSERT INTO `#__empl_places` (id, projectID, title) VALUES (14, 11, 'Кубинка');
 INSERT INTO `#__empl_places` (id, projectID, title) VALUES (15, 11, 'Селятино');
 
-create table `#__empl_work`
+create table if not exists `#__empl_work`
 (
     id int unsigned auto_increment,
     employerID int unsigned not null,

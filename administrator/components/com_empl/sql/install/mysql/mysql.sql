@@ -1,7 +1,7 @@
 set foreign_key_checks = 0;
 drop table if exists `#__empl_employers`, `#__metro_stations`, `#__empl_languages`, `#__empl_contacts`, `#__empl_documents`, `#__metro_lines`, `#__moscow_districts`, `#__moscow_regions`, `#__empl_language_levels`, `#__empl_hair_colors`;
 set foreign_key_checks = 1;
-create table `#__empl_language_levels`
+create table if not exists `#__empl_language_levels`
 (
     id int auto_increment,
     title varchar(255) not null,
@@ -20,7 +20,7 @@ INSERT INTO `#__empl_language_levels` (id, title, weight) VALUES (4, 'Англи
 create index `#__empl_language_levels_weight_index`
     on `#__empl_language_levels` (weight);
 
-create table `#__moscow_regions`
+create table if not exists `#__moscow_regions`
 (
     id   int auto_increment
         primary key,
@@ -133,7 +133,7 @@ INSERT INTO `#__moscow_regions` (id, name) VALUES (10, 'Тимирязевски
 INSERT INTO `#__moscow_regions` (id, name) VALUES (81, 'Хорошёвский район');
 INSERT INTO `#__moscow_regions` (id, name) VALUES (26, 'Южнопортовый район');
 
-create table `#__moscow_districts`
+create table if not exists `#__moscow_districts`
 (
     id   int auto_increment
         primary key,
@@ -156,7 +156,7 @@ INSERT INTO `#__moscow_districts` (id, name) VALUES (5, 'Юго-Восточны
 INSERT INTO `#__moscow_districts` (id, name) VALUES (4, 'Юго-Западный административный округ');
 INSERT INTO `#__moscow_districts` (id, name) VALUES (6, 'Южный административный округ');
 
-create table `#__metro_lines`
+create table if not exists `#__metro_lines`
 (
     id   int auto_increment
         primary key,
@@ -188,7 +188,7 @@ INSERT INTO `#__metro_lines` (id, name) VALUES (16, 'Филёвская лини
 
 -- auto-generated definition
 
-create table `#__metro_stations`
+create table if not exists `#__metro_stations`
 (
     id         int auto_increment
         primary key,
@@ -534,7 +534,7 @@ from `#__metro_stations` s
          left join `#__moscow_regions` r on s.regionID = r.id;
 
 
-create table `#__empl_employers`
+create table if not exists `#__empl_employers`
 (
     id         int unsigned auto_increment
         primary key,
@@ -575,7 +575,7 @@ create index `#__empl_employers_lf_index`
 create index `#__empl_employers_state_index`
     on `#__empl_employers` (state);
 
-create table `#__empl_languages`
+create table if not exists `#__empl_languages`
 (
     id int auto_increment,
     employerID int unsigned not null,
@@ -595,7 +595,7 @@ create table `#__empl_languages`
 create unique index `#__empl_languages_employerID_languageID_uindex`
     on `#__empl_languages` (employerID, languageID);
 
-create table `#__empl_contacts`
+create table if not exists `#__empl_contacts`
 (
     id int unsigned auto_increment,
     employerID int unsigned not null,
@@ -613,7 +613,7 @@ create table `#__empl_contacts`
 alter table `#__empl_contacts`
     add description varchar(255) default null null;
 
-create table `#__empl_documents`
+create table if not exists `#__empl_documents`
 (
     id int unsigned auto_increment,
     employerID int unsigned not null,
@@ -709,7 +709,7 @@ alter table `#__empl_documents`
 alter table `#__empl_documents`
     add city varbinary(255) default null null after issued;
 
-create table `#__empl_hair_colors`
+create table if not exists `#__empl_hair_colors`
 (
     id int unsigned auto_increment,
     title varchar(255) not null comment 'Название цвета',
