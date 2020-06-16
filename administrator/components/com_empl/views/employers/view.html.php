@@ -45,6 +45,7 @@ class EmplViewEmployers extends HtmlView
         {
             JToolbarHelper::deleteList('COM_EMPL_REMOVE_QUESTION_EMPLOYER', 'employers.delete');
         }
+        JToolbarHelper::custom('employers.download', 'download', 'download', JText::sprintf('COM_EMPL_BUTTON_EXPORT_TO_EXCEL'), false);
 		if (EmplHelper::canDo('core.admin'))
 		{
 			JToolBarHelper::preferences('com_empl');

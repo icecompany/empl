@@ -28,10 +28,34 @@ class EmplModelEmployers extends ListModel
                 'e.state',
             );
         }
+        parent::__construct($config);
         $this->isGet = EmplHelper::isGet(array('gender', 'birthday', 'search', 'min_age', 'max_age', 'driver', 'car', 'tattoo', 'piercing', 'smoke', 'smart'));
         $this->input = JFactory::getApplication()->input;
-        $this->export = false;
-        parent::__construct($config);
+        $this->export = $this->input->getString('format') != null;
+        $this->heads = [
+            'last_name' => 'COM_EMPL_HEAD_EMPLOYERS_LAST_NAME',
+            'first_name' => 'COM_EMPL_HEAD_EMPLOYER_FIRST_NAME',
+            'patronymic' => 'COM_EMPL_HEAD_EMPLOYER_PATRONYMIC',
+            'gender' => 'COM_EMPL_HEAD_EMPLOYER_GENDER',
+            'age' => 'COM_EMPL_HEAD_EMPLOYER_AGE',
+            'metro' => 'COM_EMPL_HEAD_EMPLOYER_METRO',
+            'city' => 'COM_EMPL_HEAD_EMPLOYER_CITY',
+            'languages' => 'COM_EMPL_HEAD_EMPLOYER_LANGUAGES',
+            'address' => 'COM_EMPL_HEAD_EMPLOYER_ADDRESS',
+            'experience' => 'COM_EMPL_HEAD_EMPLOYER_EXPERIENCE',
+            'height' => 'COM_EMPL_HEAD_EMPLOYER_HEIGHT',
+            'weight' => 'COM_EMPL_HEAD_EMPLOYER_WEIGHT',
+            'hair' => 'COM_EMPL_HEAD_EMPLOYER_HAIR',
+            'night' => 'COM_EMPL_HEAD_EMPLOYER_NIGHT',
+            'clothes_size' => 'COM_EMPL_HEAD_EMPLOYER_CLOTHES_SIZE',
+            'foot_size' => 'COM_EMPL_HEAD_EMPLOYER_FOOT_SIZE',
+            'smoke' => 'COM_EMPL_HEAD_EMPLOYER_SMOKE',
+            'tattoo' => 'COM_EMPL_HEAD_EMPLOYER_TATTOO',
+            'piercing' => 'COM_EMPL_HEAD_EMPLOYER_PIERCING',
+            'driver' => 'COM_EMPL_HEAD_EMPLOYER_DRIVER',
+            'car' => 'COM_EMPL_HEAD_EMPLOYER_CAR',
+            'smart' => 'COM_EMPL_HEAD_EMPLOYER_SMART',
+        ];
     }
 
     protected function _getListQuery()
@@ -40,11 +64,14 @@ class EmplModelEmployers extends ListModel
         $query = $db->getQuery(true);
         $query
             ->select("e.*, date_format(from_days(datediff(curdate(), e.birthday)), '%Y')+0 as age")
+            ->select("if(e.address is not null, cast(aes_decrypt(e.address, @password) as char(255)), '') as address")
             ->select("m.station as metro")
             ->select("c.name as city")
+            ->select("h.title as hair")
             ->from("#__empl_employers e")
             ->leftJoin("`#__metro_view_stations` m on m.id = e.metroID")
-            ->leftJoin("`#__grph_cities` c on c.id = e.cityID");
+            ->leftJoin("`#__grph_cities` c on c.id = e.cityID")
+            ->leftJoin("#__empl_hair_colors h on h.id = e.hairID");
         if ($this->isGet === false) {
             $search = $this->getState('filter.search');
             $gender = $this->getState('filter.gender');
@@ -129,6 +156,8 @@ class EmplModelEmployers extends ListModel
             $query->where("e.id in ({$ids})");
         }
 
+        $this->setState('list.limit', (!$this->export) ? $this->state->get('list.limit') : 0);
+
         /* Сортировка */
         $orderCol = $this->state->get('list.ordering');
         $orderDirn = $this->state->get('list.direction');
@@ -155,15 +184,27 @@ class EmplModelEmployers extends ListModel
             $arr['city'] = $item->city;
             $arr['metro'] = $item->metro;
             $arr['state'] = $item->state;
+            $arr['address'] = $item->address;
+            $arr['experience'] = $item->experience;
+            $arr['height'] = $item->height;
+            $arr['weight'] = $item->weight;
+            $arr['hair'] = $item->hair;
+            $arr['night'] = $item->night;
+            $arr['clothes_size'] = $item->clothes_size;
+            $arr['foot_size'] = $item->foot_size;
+            $arr['smoke'] = JText::sprintf((!$item->smoke) ? 'JNO' : 'JYES');
+            $arr['tattoo'] = $item->tattoo;
+            $arr['piercing'] = $item->piercing;
+            $arr['driver'] = JText::sprintf((!$item->driver) ? 'JNO' : 'JYES');
+            $arr['car'] = JText::sprintf((!$item->car) ? 'JNO' : 'JYES');
+            $arr['smart'] = JText::sprintf((!$item->smart) ? 'JNO' : 'JYES');
             $arr['languages'] = array();
             $result['items'][$item->id] = $this->prepare($arr);
         }
         $config = array('employerID' => array_keys($result['items']), 'columns' => array('employerID', 'languageID'), 'key' => 'employerID', 'val' => 'languageID');
         $languages_model = parent::getInstance('Languages', 'EmplModel', $config);
         $languages = $languages_model->getItems();
-        foreach ($languages as $employerID => $language) {
-            $result['items'][$employerID]['languages'] = $language;
-        }
+        foreach ($languages as $employerID => $language) $result['items'][$employerID]['languages'] = $language;
         return $result;
     }
 
@@ -176,6 +217,44 @@ class EmplModelEmployers extends ListModel
 
         return $data;
     }
+
+    public function export()
+    {
+        $items = $this->getItems();
+        JLoader::discover('PHPExcel', JPATH_LIBRARIES);
+        JLoader::register('PHPExcel', JPATH_LIBRARIES . '/PHPExcel.php');
+
+        $xls = new PHPExcel();
+        $xls->setActiveSheetIndex(0);
+        $sheet = $xls->getActiveSheet();
+
+        //Заголовки
+        $j = 0;
+        foreach ($this->heads as $item => $head) $sheet->setCellValueByColumnAndRow($j++, 1, JText::sprintf($head));
+
+        $sheet->setTitle(JText::sprintf('COM_EMPL_TITLE_EMPLOYERS'));
+
+        //Данные
+        $row = 2; //Строка, с которой начнаются данные
+        $col = 0;
+        foreach ($items['items'] as $i => $item) {
+            foreach ($this->heads as $elem => $head) {
+                $sheet->setCellValueByColumnAndRow($col++, $row, $item[$elem]);
+            }
+            $col = 0;
+            $row++;
+        }
+        header("Expires: Mon, 1 Apr 1974 05:00:00 GMT");
+        header("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+        header("Cache-Control: no-cache, must-revalidate");
+        header("Pragma: public");
+        header("Content-type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename=Employers.xls");
+        $objWriter = PHPExcel_IOFactory::createWriter($xls, 'Excel5');
+        $objWriter->save('php://output');
+        jexit();
+    }
+
 
     /* Сортировка по умолчанию */
     protected function populateState($ordering = 'e.last_name', $direction = 'asc')
@@ -240,6 +319,6 @@ class EmplModelEmployers extends ListModel
         return $db->setQuery($query)->loadColumn() ?? array();
     }
 
-    private $isGet, $input, $export;
+    private $isGet, $input, $export, $heads;
 
 }
