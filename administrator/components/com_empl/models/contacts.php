@@ -14,6 +14,7 @@ class EmplModelContacts extends ListModel
         }
         $this->export = false;
         if (isset($config['employerID'])) $this->employerID = $config['employerID'];
+        if (isset($config['employerIDs'])) $this->employerIDs = $config['employerIDs'];
         parent::__construct($config);
     }
 
@@ -24,8 +25,16 @@ class EmplModelContacts extends ListModel
         $query
             ->select("id, tip, description")
             ->select("cast(aes_decrypt(val, @password) as char(255)) as val")
-            ->from("#__empl_contacts")
-            ->where("employerID = {$this->employerID}");
+            ->from("#__empl_contacts");
+        if (!empty($this->employerID)) {
+            $query->where("employerID = {$this->employerID}");
+        }
+        if (!empty($this->employerIDs)) {
+            $ids = implode(', ', $this->employerIDs);
+            $query
+                ->select("employerID")
+                ->where("employerID in ({$ids})");
+        }
         $this->setState('list.limit', 0);
 
         return $query;
@@ -47,11 +56,14 @@ class EmplModelContacts extends ListModel
             $arr['edit_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_HEAD_ACTION_EDIT'));
             $url = JRoute::_("index.php?option=com_empl&amp;task=contact.forceDelete&amp;contactID={$item->id}&amp;return={$return}");
             $arr['delete_link'] = JHtml::link($url, JText::sprintf('COM_EMPL_HEAD_ACTION_DELETE'));
-            $result[] = $arr;
+            if (!empty($this->employerID)) $result[] = $arr;
+            if (!empty($this->employerIDs)) {
+                $result[$item->employerID][] = $item->val;
+            }
         }
         return $result;
     }
 
-    private $export, $employerID;
+    private $export, $employerID, $employerIDs;
 
 }

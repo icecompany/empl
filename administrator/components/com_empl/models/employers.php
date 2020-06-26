@@ -40,6 +40,7 @@ class EmplModelEmployers extends ListModel
             'age' => 'COM_EMPL_HEAD_EMPLOYER_AGE',
             'metro' => 'COM_EMPL_HEAD_EMPLOYER_METRO',
             'city' => 'COM_EMPL_HEAD_EMPLOYER_CITY',
+            'contacts' => 'COM_EMPL_HEAD_EMPLOYER_CONTACTS',
             'languages' => 'COM_EMPL_HEAD_EMPLOYER_LANGUAGES',
             'address' => 'COM_EMPL_HEAD_EMPLOYER_ADDRESS',
             'experience' => 'COM_EMPL_HEAD_EMPLOYER_EXPERIENCE',
@@ -101,7 +102,7 @@ class EmplModelEmployers extends ListModel
         }
         if (!empty($search)) {
             $search = $db->q("%{$search}%");
-            $query->where("(e.first_name LIKE {$search} or e.last_name LIKE {$search} or e.patronymic LIKE {$search})");
+            $query->where("(e.first_name LIKE {$search} or e.last_name LIKE {$search} or c.name LIKE {$search})");
         }
         if (!empty($gender)) {
             $gender = $db->q($gender);
@@ -205,6 +206,8 @@ class EmplModelEmployers extends ListModel
         $languages_model = parent::getInstance('Languages', 'EmplModel', $config);
         $languages = $languages_model->getItems();
         foreach ($languages as $employerID => $language) $result['items'][$employerID]['languages'] = $language;
+        $contacts = $this->getContacts(array_keys($result['items']));
+        foreach ($contacts as $employerID => $contact) $result['items'][$employerID]['contacts'] = $contact;
         return $result;
     }
 
@@ -255,6 +258,15 @@ class EmplModelEmployers extends ListModel
         jexit();
     }
 
+    private function getContacts(array $employerIDs = []): array
+    {
+        if (empty($employerIDs)) return [];
+        $model = ListModel::getInstance('Contacts', 'EmplModel', ['employerIDs' => $employerIDs]);
+        $contacts = $model->getItems();
+        if (empty($contacts)) return [];
+        foreach ($contacts as $employerID => $contact) $contacts[$employerID] = implode(', ', $contact);
+        return $contacts;
+    }
 
     /* Сортировка по умолчанию */
     protected function populateState($ordering = 'e.last_name', $direction = 'asc')
