@@ -1,4 +1,4 @@
-var url = "/index.php?option=com_projects&task=api.getCities&api_key=4n98tpw49vtpw496npyww9p6by";
+var url = "index.php?option=com_companies&task=cities.execute&format=json";
 window.onload = function () {
     //Сохранение активной вкладки на странице
     jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -20,7 +20,7 @@ window.onload = function () {
             if (val.length < 2) return;
             jQuery.getJSON(`${url}&q=${val}`, function (json) {
                 select_elem.empty();
-                jQuery.each(json, function (idx, obj) {
+                jQuery.each(json.data, function (idx, obj) {
                     select_elem.append(`<option value="${obj.id}">${obj.name} (${obj.region})</option>`);
                 });
                 select_elem.chosen({width: "95%"});
