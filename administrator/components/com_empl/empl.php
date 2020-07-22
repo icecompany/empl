@@ -11,6 +11,9 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_empl'))
 
 // Require the helper
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/empl.php';
+require_once JPATH_LIBRARIES . '/AWS/aws-autoloader.php';
+require_once JPATH_LIBRARIES . '/classSimpleImage.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_yastorage/helpers/yastorage.php';
 
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/passwd.php';
 $db = JFactory::getDbo();

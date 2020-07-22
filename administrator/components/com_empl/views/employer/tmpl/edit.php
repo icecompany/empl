@@ -19,7 +19,7 @@ HTMLHelper::_('script', 'com_empl/employer.js', array('version' => 'auto', 'rela
 </script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <form action="<?php echo EmplHelper::getActionUrl(); ?>"
-      method="post" name="adminForm" id="adminForm" xmlns="http://www.w3.org/1999/html" class="form-validate">
+      method="post" name="adminForm" id="adminForm" xmlns="http://www.w3.org/1999/html" class="form-validate" enctype="multipart/form-data">
     <div class="row-fluid">
         <div class="span12 form-horizontal">
             <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general', 'useCookie' => true)); ?>
@@ -64,6 +64,22 @@ HTMLHelper::_('script', 'com_empl/employer.js', array('version' => 'auto', 'rela
                     </div>
                 </div>
                 <?php echo JHtml::_('bootstrap.endTab'); ?>
+                <?php if ($this->item->id !== null): ?>
+                    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'photos', JText::sprintf('COM_EMPL_TAB_EMPLOYER_PHOTOS')); ?>
+                    <div class="row-fluid">
+                        <div class="span3">
+                            <div>
+                                <?php echo $this->loadTemplate('upload'); ?>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div>
+                                <?php //echo $this->loadTemplate('about_right'); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php echo JHtml::_('bootstrap.endTab'); ?>
+                <?php endif;?>
             </div>
             <?php echo JHtml::_('bootstrap.endTabSet'); ?>
         </div>

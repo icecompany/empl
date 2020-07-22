@@ -33,6 +33,9 @@ class EmplModelEmployer extends AdminModel {
 
         $employerID = ($data['id'] != null) ? $data['id'] : $this->_db->insertid();
         $s2 = $this->saveLanguages($employerID, $data['languages'] ?? array());
+        if ($data['id'] !== null) {
+            $this->uploadFiles($data['id']);
+        }
         return $s1 && $s2;
     }
 
@@ -155,5 +158,20 @@ class EmplModelEmployer extends AdminModel {
         $table = $this->getTable('Languages');
         $table->load(array('employerID' => $employerID, 'languageID' => $languageID));
         $table->delete($table->id);
+    }
+
+    private function uploadFiles(int $employerID): void {
+        $files = $_FILES['jform'];
+        if (!empty($files['name'])) {
+            JModelLegacy::addIncludePath(JPATH_ADMINISTRATOR . "/components/com_yastorage/models", 'YastorageModel');
+            $model = JModelLegacy::getInstance('Mkv', 'YastorageModel');
+            $key = "employers/{$employerID}";
+            $paths = [];
+            foreach ($files['name'] as $file) {
+                foreach ($file as $index => $name) {
+                    $paths[] = $model->upload($bucket = 'mkv-empl', $key, $files['tmp_name']['file'][$index], $name);
+                }
+            }
+        }
     }
 }

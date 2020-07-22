@@ -295,4 +295,14 @@
                 required="true"
         />
     </fieldset>
+    <fieldset name="upload">
+        <field
+                name="file"
+                type="file"
+                label="COM_EMPL_FORM_EMPLOYER_PHOTOS_LABEL"
+                description="COM_EMPL_FORM_EMPLOYER_PHOTOS_DESC"
+                class="span12"
+                multiple="true"
+        />
+    </fieldset>
 </form>
