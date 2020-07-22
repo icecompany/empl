@@ -174,4 +174,30 @@ class EmplModelEmployer extends AdminModel {
             }
         }
     }
+
+    public function getFiles(): array
+    {
+        $item = parent::getItem();
+        if ($item->id === null) return [];
+        JModelLegacy::addIncludePath(JPATH_ADMINISTRATOR . "/components/com_yastorage/models", 'YastorageModel');
+        $model = JModelLegacy::getInstance('Mkv', 'YastorageModel');
+        $bucket = 'mkv-empl';
+        $prefix = "employers/{$item->id}/";
+        $files = $model->listObjects($bucket, $prefix);
+        if (empty($files)) return [];
+        $result = [];
+        foreach ($files as $file) {
+            $arr = [];
+            $url = JRoute::_("index.php?option=com_yastorage&amp;task=mkv.download&amp;bucket={$bucket}&amp;key={$file['Key']}");
+            $image_url = $model->getLink('mkv-empl', $file['Key']);
+            $arr['download_link'] = JHtml::link($url, basename($file['Key']));
+            $url = JRoute::_("index.php?option=com_yastorage&amp;task=mkv.delete&amp;bucket={$bucket}&amp;key={$file['Key']}");
+            $arr['delete_link'] = JHtml::link($url, JText::sprintf('COM_MKV_ACTION_DELETE'));
+            $arr['size'] = JText::sprintf('COM_YASTORAGE_HEAD_OBJECT_SIZE_TEXT_MB', round((float) $file['Size'] / 1024 / 1024, 2));
+            $arr['modified'] = JDate::getInstance($file['LastModified']->date)->format("d.m.Y");
+            $arr['image'] = JHtml::link($image_url, JHtml::image($image_url, '', ['width' => '320px']), ['target' => '_blank']);
+            $result[] = $arr;
+        }
+        return $result;
+    }
 }

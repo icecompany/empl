@@ -1,5 +1,15 @@
 var url = "/index.php?option=com_projects&task=api.getCities&api_key=4n98tpw49vtpw496npyww9p6by";
 window.onload = function () {
+    //Сохранение активной вкладки на странице
+    jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        // save the latest tab; use cookies if you like 'em better:
+        localStorage.setItem('lastTab', jQuery(this).attr('href'));
+    });
+    var lastTab = localStorage.getItem('lastTab');
+    if (lastTab) {
+        jQuery('[href="' + lastTab + '"]').tab('show');
+    }
+
     let select_elem = jQuery("#jform_cityID");
     select_elem.chosen();
     let f = document.querySelector(".chzn-search input");

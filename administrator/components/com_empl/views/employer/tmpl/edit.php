@@ -72,9 +72,9 @@ HTMLHelper::_('script', 'com_empl/employer.js', array('version' => 'auto', 'rela
                                 <?php echo $this->loadTemplate('upload'); ?>
                             </div>
                         </div>
-                        <div class="span6">
+                        <div class="span9">
                             <div>
-                                <?php //echo $this->loadTemplate('about_right'); ?>
+                                <?php echo $this->loadTemplate('photos'); ?>
                             </div>
                         </div>
                     </div>
